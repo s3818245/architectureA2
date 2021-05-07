@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.entity;
+package com.quynhanh.architecturea2.model;
 
 import javax.persistence.*;
 import java.util.Date;

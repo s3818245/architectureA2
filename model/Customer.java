@@ -1,12 +1,13 @@
-package com.quynhanh.architecturea2.entity;
+package com.quynhanh.architecturea2.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
-public class Provider {
-    @Column
+public class Customer {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column
     private int id;
 
     @Column
@@ -24,21 +25,16 @@ public class Provider {
     @Column
     private String email;
 
-    @Column
-    private String contactPerson;
+    public Customer() {
+    }
 
-    public Provider(int id, String name, String address, String phone, String fax, String email, String contactPerson) {
+    public Customer(int id, String name, String address, String phone, String fax, String email) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.fax = fax;
         this.email = email;
-        this.contactPerson = contactPerson;
-    }
-
-    public Provider() {
-
     }
 
     public int getId() {
@@ -87,13 +83,5 @@ public class Provider {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getContactPerson() {
-        return contactPerson;
-    }
-
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
     }
 }

@@ -1,6 +1,4 @@
-package com.quynhanh.architecturea2.entity;
-
-import org.springframework.beans.factory.annotation.Autowired;
+package com.quynhanh.architecturea2.model;
 
 import javax.persistence.*;
 import java.util.List;
