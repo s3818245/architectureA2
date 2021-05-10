@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
-public class SaleDetails {
+public class SaleDetail {
 
     @Id
     @Column

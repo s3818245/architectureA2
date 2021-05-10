@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-public class SalesInvoice {
+public class SaleInvoice {
 
     @Id
     @Column
