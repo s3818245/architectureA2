@@ -3,7 +3,7 @@ package com.example.sadi_assignment2_s3819293.model;
 import javax.persistence.*;
 
 @Entity
-public class OrderDetails {
+public class OrderDetail {
 
     @Id
     @Column

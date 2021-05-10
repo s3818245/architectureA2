@@ -14,9 +14,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Properties;
 
-import com.example.sadi_assignment2_s3819293.model.Customer;
-import com.example.sadi_assignment2_s3819293.model.Provider;
-import com.example.sadi_assignment2_s3819293.model.Category;
+import com.example.sadi_assignment2_s3819293.model.*;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 @Configuration
@@ -73,4 +71,53 @@ public class AppConfig {
         return new Category();
     }
 
+    @Bean
+    public Product product() {
+        return new Product();
+    }
+
+    @Bean
+    public Staff staff() {
+        return new Staff();
+    }
+
+    @Bean
+    public Order order() {
+        return new Order();
+    }
+
+    @Bean
+    public OrderDetail orderDetail() {
+        return new OrderDetail();
+    }
+
+    @Bean
+    public SaleInvoice saleInvoice() {
+        return new SaleInvoice();
+    }
+
+    @Bean
+    public SaleDetail saleDetail() {
+        return new SaleDetail();
+    }
+
+    @Bean
+    public ReceivingNote receivingNote() {
+        return new ReceivingNote();
+    }
+
+    @Bean
+    public ReceivingDetail receivingDetail() {
+        return new ReceivingDetail();
+    }
+
+    @Bean
+    public DeliveryNote deliveryNote() {
+        return new DeliveryNote();
+    }
+
+    @Bean
+    public DeliveryDetail deliveryDetail() {
+        return new DeliveryDetail();
+    }
 }
