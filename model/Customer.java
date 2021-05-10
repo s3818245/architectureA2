@@ -1,11 +1,11 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "customer")
 public class Customer {
+
     @Id
     @Column
     private int id;
@@ -25,16 +25,20 @@ public class Customer {
     @Column
     private String email;
 
+    @Column
+    private String contactPerson;
+
     public Customer() {
     }
 
-    public Customer(int id, String name, String address, String phone, String fax, String email) {
+    public Customer(int id, String name, String address, String phone, String fax, String email, String contactPerson) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.fax = fax;
         this.email = email;
+        this.contactPerson = contactPerson;
     }
 
     public int getId() {
@@ -83,5 +87,13 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getContactPerson() {
+        return contactPerson;
+    }
+
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson;
     }
 }

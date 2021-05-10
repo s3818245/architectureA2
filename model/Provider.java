@@ -1,9 +1,11 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "provider")
 public class Provider {
+
     @Column
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

@@ -1,8 +1,10 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "category")
 public class Category {
     @Id
     @Column
@@ -11,6 +13,9 @@ public class Category {
 
     @Column
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Product> product;
 
     public Category(int id, String name) {
         this.id = id;

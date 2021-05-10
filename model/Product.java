@@ -1,10 +1,12 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "product")
 public class Product {
+
     @Id
     @Column
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -32,7 +34,6 @@ public class Product {
     @Column
     private double sellingPrice;
 
-    @Column
     @OneToMany(mappedBy = "id")
     private List<OrderDetails> orderDetails;
 

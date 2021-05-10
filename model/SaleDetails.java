@@ -1,9 +1,11 @@
 package com.example.sadi_assignment2_s3819293.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
-@Entity
-public class OrderDetails {
+public class SaleDetails {
 
     @Id
     @Column
@@ -20,5 +22,7 @@ public class OrderDetails {
     private Product product;
 
     @ManyToOne
-    private Order order;
+    @JsonIgnore
+    private SalesInvoice salesInvoice;
+
 }

@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -6,6 +6,7 @@ import java.util.List;
 
 @Entity
 public class Order {
+
     @Id
     @Column
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -20,7 +21,7 @@ public class Order {
     @ManyToOne
     private Provider provider;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "order")
     private List<OrderDetails> orderDetails;
 
     public Order(int id, Date date, Staff staff, Provider provider, List<OrderDetails> orderDetails) {

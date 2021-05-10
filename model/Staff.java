@@ -1,9 +1,12 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import javax.persistence.*;
+import java.security.SecureRandom;
 
 @Entity
+@Table(name = "staff")
 public class Staff {
+
     @Column
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
