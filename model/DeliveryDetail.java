@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,7 +9,7 @@ public class DeliveryDetail {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private int delivery_detail_id;
 
     @ManyToOne
     private Product product;
@@ -19,24 +19,24 @@ public class DeliveryDetail {
 
     @ManyToOne
     @JsonIgnore
-    private DeliveryDetail deliveryDetail;
+    private DeliveryNote deliveryNote;
 
     public DeliveryDetail() {
     }
 
-    public DeliveryDetail(int id, Product product, int quantity, DeliveryDetail deliveryDetail) {
-        this.id = id;
+    public DeliveryDetail(int delivery_detail_id, Product product, int quantity, DeliveryNote deliveryNote) {
+        this.delivery_detail_id = delivery_detail_id;
         this.product = product;
         this.quantity = quantity;
-        this.deliveryDetail = deliveryDetail;
+        this.deliveryNote = deliveryNote;
     }
 
-    public int getId() {
-        return id;
+    public int getDelivery_detail_id() {
+        return delivery_detail_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDelivery_detail_id(int id) {
+        this.delivery_detail_id = id;
     }
 
     public Product getProduct() {
@@ -55,11 +55,11 @@ public class DeliveryDetail {
         this.quantity = quantity;
     }
 
-    public DeliveryDetail getDeliveryDetail() {
-        return deliveryDetail;
+    public DeliveryNote getDeliveryNote() {
+        return deliveryNote;
     }
 
-    public void setDeliveryDetail(DeliveryDetail deliveryDetail) {
-        this.deliveryDetail = deliveryDetail;
+    public void setDeliveryNote(DeliveryNote deliveryNote) {
+        this.deliveryNote = deliveryNote;
     }
 }

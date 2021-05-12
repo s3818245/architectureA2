@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
@@ -13,7 +13,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private int product_id;
 
     @Column
     private String name;
@@ -45,8 +45,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, String name, String model, String brand, String company, String description, Category category, double sellingPrice, List<OrderDetail> orderDetails) {
-        this.id = id;
+    public Product(int product_id, String name, String model, String brand, String company, String description, Category category, double sellingPrice, List<OrderDetail> orderDetails) {
+        this.product_id = product_id;
         this.name = name;
         this.model = model;
         this.brand = brand;
@@ -65,12 +65,12 @@ public class Product {
         this.sellingPrice = sellingPrice;
     }
 
-    public int getId() {
-        return id;
+    public int getProduct_id() {
+        return product_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setProduct_id(int id) {
+        this.product_id = id;
     }
 
     public String getName() {

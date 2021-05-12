@@ -1,6 +1,6 @@
-package com.quynhanh.architecturea2.service;
-import com.quynhanh.architecturea2.model.DeliveryDetail;
-import com.quynhanh.architecturea2.model.DeliveryNote;
+package com.example.sadi_assignment2_s3819293.service;
+import com.example.sadi_assignment2_s3819293.model.DeliveryDetail;
+import com.example.sadi_assignment2_s3819293.model.DeliveryNote;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,39 @@ public class DeliveryNoteService {
     public List<DeliveryNote> getAllDeliveryNote() {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(DeliveryNote.class);
         return criteria.list();
+    }
+
+    public DeliveryNote getOneDeliveryNote(int id) {
+        return sessionFactory.getCurrentSession().get(DeliveryNote.class, id);
+    }
+
+    public int addDeliveryNote(DeliveryNote deliveryNote) {
+        for (DeliveryDetail deliveryDetail: deliveryNote.getDeliveryDetails()) {
+            //set the delivery note in the delivery detail to be the current one
+            deliveryDetail.setDeliveryNote(deliveryNote);
+            //save the details of the receiving note
+            this.sessionFactory.getCurrentSession().save(deliveryDetail);
+        }
+
+        return deliveryNote.getDelivery_note_id();
+    }
+
+    public String deleteDeliveryNote(int id) {
+        DeliveryNote deliveryNote = sessionFactory.getCurrentSession().get(DeliveryNote.class, id);
+        if (deliveryNote != null) {
+            sessionFactory.getCurrentSession().delete(deliveryNote);
+        }
+        return "Delivery Note with id: " + deliveryNote.getDelivery_note_id() + " is successfully deleted";
+    }
+
+    public DeliveryNote updateDeliveryNote(DeliveryNote deliveryNote) {
+        if (deliveryNote.getDeliveryDetails() != null) {
+            for (DeliveryDetail deliveryDetail: deliveryNote.getDeliveryDetails()) {
+                deliveryDetail.setDeliveryNote(deliveryNote);
+            }
+        }
+        sessionFactory.getCurrentSession().update(deliveryNote);
+        return deliveryNote;
     }
 }
 

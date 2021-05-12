@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -28,6 +28,14 @@ public class ReceivingNote {
     private Order order;
 
     public ReceivingNote() {
+    }
+
+    public ReceivingNote(int receiving_note_id, Date date, Staff staff, List<ReceivingDetail> receivingDetails, Order order) {
+        this.receiving_note_id = receiving_note_id;
+        this.date = date;
+        this.staff = staff;
+        this.receivingDetails = receivingDetails;
+        this.order = order;
     }
 
     public int getReceiving_note_id() {

@@ -16,7 +16,12 @@ public class DeliveryNoteController {
     private DeliveryNoteService deliveryNoteService;
 
     @RequestMapping(path = "/deliveryNotes", method = RequestMethod.GET)
-    public List<DeliveryNote> getAllCustomer() {
+    public List<DeliveryNote> getAllDeliveryNote() {
         return deliveryNoteService.getAllDeliveryNote();
+    }
+
+    @RequestMapping(path = "/deliveryNotes", method = RequestMethod.POST)
+    public int addDeliveryNote(DeliveryNote deliveryNote) {
+        return deliveryNoteService.addDeliveryNote(deliveryNote);
     }
 }

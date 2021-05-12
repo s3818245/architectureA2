@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,7 +10,7 @@ public class SaleDetail {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private int sale_detail_id;
 
     @Column
     private int quantity;
@@ -26,4 +26,54 @@ public class SaleDetail {
     @JsonIgnore
     private SaleInvoice salesInvoice;
 
+    public SaleDetail() {
+    }
+
+    public SaleDetail(int sale_detail_id, int quantity, double price, Product product, SaleInvoice salesInvoice) {
+        this.sale_detail_id = sale_detail_id;
+        this.quantity = quantity;
+        this.price = price;
+        this.product = product;
+        this.salesInvoice = salesInvoice;
+    }
+
+    public int getSale_detail_id() {
+        return sale_detail_id;
+    }
+
+    public void setSale_detail_id(int id) {
+        this.sale_detail_id = id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public SaleInvoice getSalesInvoice() {
+        return salesInvoice;
+    }
+
+    public void setSalesInvoice(SaleInvoice salesInvoice) {
+        this.salesInvoice = salesInvoice;
+    }
 }

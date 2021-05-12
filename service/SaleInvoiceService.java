@@ -1,6 +1,7 @@
-package com.quynhanh.architecturea2.service;
+package com.example.sadi_assignment2_s3819293.service;
 
-import com.quynhanh.architecturea2.model.SaleInvoice;
+import com.example.sadi_assignment2_s3819293.model.SaleDetail;
+import com.example.sadi_assignment2_s3819293.model.SaleInvoice;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,32 @@ public class SaleInvoiceService {
     public List<SaleInvoice> getAllSaleInvoice() {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(SaleInvoice.class);
         return criteria.list();
+    }
+
+    public SaleInvoice getSaleInvoiceById(int id) {
+        return sessionFactory.getCurrentSession().get(SaleInvoice.class, id);
+    }
+
+    public int addSaleInvoice(SaleInvoice saleInvoice) {
+        this.sessionFactory.getCurrentSession().save(saleInvoice);
+        return saleInvoice.getSale_invoice_id();
+    }
+
+    public String deleteSaleInvoice(int id) {
+        SaleDetail saleDetail = this.sessionFactory.getCurrentSession().get(SaleDetail.class, id);
+        if (saleDetail != null) {
+            this.sessionFactory.getCurrentSession().delete(saleDetail);
+        }
+        return "Successfully deleted sale invoice_" + id;
+    }
+
+    public SaleInvoice updateSaleInvoice(SaleInvoice saleInvoice) {
+        if (saleInvoice.getSaleDetails() != null) {
+            for (SaleDetail saleDetail: saleInvoice.getSaleDetails()) {
+                saleDetail.setSalesInvoice(saleInvoice);
+            }
+        }
+        this.sessionFactory.getCurrentSession().update(saleInvoice);
+        return saleInvoice;
     }
 }

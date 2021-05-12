@@ -19,4 +19,9 @@ public class ReceivingNoteController {
     public List<ReceivingNote> getAllReceivingNote() {
         return receivingNoteService.getAllReceivingNote();
     }
+
+    @RequestMapping(path = "/receivingNotes", method = RequestMethod.POST)
+    public int addReceivingNote(ReceivingNote receivingNote) {
+        return receivingNoteService.addReceivingNote(receivingNote);
+    }
 }

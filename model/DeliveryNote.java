@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +8,7 @@ public class DeliveryNote {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private int delivery_note_id;
 
     @Column
     private Date date;
@@ -22,19 +22,19 @@ public class DeliveryNote {
     public DeliveryNote() {
     }
 
-    public DeliveryNote(int id, Date date, Staff staff, List<DeliveryDetail> deliveryDetails) {
-        this.id = id;
+    public DeliveryNote(int delivery_note_id, Date date, Staff staff, List<DeliveryDetail> deliveryDetails) {
+        this.delivery_note_id = delivery_note_id;
         this.date = date;
         this.staff = staff;
         this.deliveryDetails = deliveryDetails;
     }
 
-    public int getId() {
-        return id;
+    public int getDelivery_note_id() {
+        return delivery_note_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDelivery_note_id(int id) {
+        this.delivery_note_id = id;
     }
 
     public Date getDate() {

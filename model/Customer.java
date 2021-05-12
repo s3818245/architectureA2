@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,7 +9,7 @@ public class Customer {
 
     @Id
     @Column
-    private int id;
+    private int customer_id;
 
     @Column
     private String name;
@@ -35,8 +35,8 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(int id, String name, String address, String phone, String fax, String email, String contactPerson) {
-        this.id = id;
+    public Customer(int customer_id, String name, String address, String phone, String fax, String email, String contactPerson) {
+        this.customer_id = customer_id;
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -45,12 +45,12 @@ public class Customer {
         this.contactPerson = contactPerson;
     }
 
-    public int getId() {
-        return id;
+    public int getCustomer_id() {
+        return customer_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCustomer_id(int id) {
+        this.customer_id = id;
     }
 
     public String getName() {
