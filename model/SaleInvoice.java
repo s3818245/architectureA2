@@ -1,25 +1,29 @@
-package com.example.sadi_assignment2_s3819293.model;
-
+package com.quynhanh.architecturea2.model;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class SaleInvoice {
 
     @Id
-    @Column
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     @Column
     private Date date;
 
-    @OneToOne
+    @ManyToOne
     private Staff staff;
 
-    @OneToOne
+    @ManyToOne
     private Customer customer;
 
+
     @OneToMany(mappedBy = "salesInvoice")
-    private List<SaleDetails> saleDetails;
+    private List<SaleDetail> saleDetails;
+
+    public SaleInvoice() {
+    }
+
 }

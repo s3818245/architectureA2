@@ -1,31 +1,42 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "orders")
 public class Order {
 
     @Id
-    @Column
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private int order_id;
 
     @Column
     private Date date;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "staff_id")
     private Staff staff;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "provider_id")
     private Provider provider;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderDetails> orderDetails;
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails;
 
-    public Order(int id, Date date, Staff staff, Provider provider, List<OrderDetails> orderDetails) {
-        this.id = id;
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private DeliveryNote deliveryNote;
+
+    public Order(int order_id, Date date, Staff staff, Provider provider, List<OrderDetail> orderDetails) {
+        this.order_id = order_id;
         this.date = date;
         this.staff = staff;
         this.provider = provider;
@@ -35,12 +46,12 @@ public class Order {
     public Order() {
     }
 
-    public int getId() {
-        return id;
+    public int getOrder_id() {
+        return order_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setOrder_id(int id) {
+        this.order_id = id;
     }
 
     public Date getDate() {
@@ -67,11 +78,11 @@ public class Order {
         this.provider = provider;
     }
 
-    public List<OrderDetails> getOrderDetails() {
+    public List<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(List<OrderDetails> orderDetails) {
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
 }

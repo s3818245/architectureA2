@@ -1,6 +1,6 @@
-package com.example.sadi_assignment2_s3819293.service;
+package com.quynhanh.architecturea2.service;
 
-import com.example.sadi_assignment2_s3819293.model.SaleInvoice;
+import com.quynhanh.architecturea2.model.SaleInvoice;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,8 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,7 +12,6 @@ import java.util.List;
 public class Product {
 
     @Id
-    @Column
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
@@ -28,14 +31,31 @@ public class Product {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name="id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name="category_id")
     private Category category;
 
     @Column
     private double sellingPrice;
 
-    @OneToMany(mappedBy = "id")
-    private List<OrderDetails> orderDetails;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<OrderDetail> orderDetails;
+
+    public Product() {
+    }
+
+    public Product(int id, String name, String model, String brand, String company, String description, Category category, double sellingPrice, List<OrderDetail> orderDetails) {
+        this.id = id;
+        this.name = name;
+        this.model = model;
+        this.brand = brand;
+        this.company = company;
+        this.description = description;
+        this.category = category;
+        this.sellingPrice = sellingPrice;
+        this.orderDetails = orderDetails;
+    }
 
     public double getSellingPrice() {
         return sellingPrice;

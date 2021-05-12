@@ -1,15 +1,17 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "provider")
 public class Provider {
 
-    @Column
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private int provider_id;
 
     @Column
     private String name;
@@ -29,8 +31,12 @@ public class Provider {
     @Column
     private String contactPerson;
 
-    public Provider(int id, String name, String address, String phone, String fax, String email, String contactPerson) {
-        this.id = id;
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Order> orderList;
+
+    public Provider(int provider_id, String name, String address, String phone, String fax, String email, String contactPerson) {
+        this.provider_id = provider_id;
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -43,12 +49,12 @@ public class Provider {
 
     }
 
-    public int getId() {
-        return id;
+    public int getProvider_id() {
+        return provider_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setProvider_id(int id) {
+        this.provider_id = id;
     }
 
     public String getName() {
@@ -99,3 +105,4 @@ public class Provider {
         this.contactPerson = contactPerson;
     }
 }
+

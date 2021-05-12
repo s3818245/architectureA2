@@ -1,6 +1,7 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
@@ -27,6 +28,9 @@ public class Customer {
 
     @Column
     private String contactPerson;
+
+    @OneToMany(mappedBy = "customer")
+    private List<SaleInvoice> saleInvoices;
 
     public Customer() {
     }

@@ -1,41 +1,41 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 
 import javax.persistence.*;
+
 import java.util.List;
 
 @Entity
 @Table(name = "category")
 public class Category {
     @Id
-    @Column
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private int category_id;
 
     @Column
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Product> product;
 
     public Category(int id, String name) {
-        this.id = id;
+        this.category_id = id;
         this.name = name;
     }
 
-    public Category(int id) {
-        this.id = id;
+    public Category(int category_id) {
+        this.category_id = category_id;
     }
 
     public Category() {
     }
 
     //getters and setters
-    public int getId() {
-        return id;
+    public int getCategory_id() {
+        return category_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCategory_id(int id) {
+        this.category_id = id;
     }
 
     public String getName() {
@@ -46,3 +46,4 @@ public class Category {
         this.name = name;
     }
 }
+

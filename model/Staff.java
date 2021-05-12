@@ -1,19 +1,21 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.security.SecureRandom;
+
+import java.util.List;
 
 @Entity
 @Table(name = "staff")
 public class Staff {
 
-    @Column
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private int staff_id;
 
     @Column
-    private String name;
+        private String name;
 
     @Column
     private String address;
@@ -24,8 +26,20 @@ public class Staff {
     @Column
     private String email;
 
-    public Staff(int id, String name, String address, String phone, String email) {
-        this.id = id;
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Order> orderList;
+
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ReceivingNote> receivingNotes;
+
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<SaleInvoice> saleInvoices;
+
+    public Staff(int staff_id, String name, String address, String phone, String email) {
+        this.staff_id = staff_id;
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -35,12 +49,12 @@ public class Staff {
     public Staff() {
     }
 
-    public int getId() {
-        return id;
+    public int getStaff_id() {
+        return staff_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setStaff_id(int id) {
+        this.staff_id = id;
     }
 
     public String getName() {
@@ -75,3 +89,4 @@ public class Staff {
         this.email = email;
     }
 }
+

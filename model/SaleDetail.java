@@ -1,14 +1,14 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
+@Entity
 public class SaleDetail {
 
     @Id
-    @Column
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
@@ -19,10 +19,11 @@ public class SaleDetail {
     private double price;
 
     @ManyToOne
+    @JsonIgnore
     private Product product;
 
     @ManyToOne
     @JsonIgnore
-    private SalesInvoice salesInvoice;
+    private SaleInvoice salesInvoice;
 
 }
