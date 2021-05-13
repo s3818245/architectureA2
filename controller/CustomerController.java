@@ -41,8 +41,8 @@ public class CustomerController {
     }
 
     @RequestMapping(path = "/customers", method = RequestMethod.DELETE)
-    public void deleteCustomer(@RequestBody Customer customer) {
-        this.customerService.deleteCustomer(customer);
+    public String deleteCustomer(@RequestBody Customer customer) {
+        return this.customerService.deleteCustomer(customer);
     }
 
     @RequestMapping(path = "/customers/{name}", method = RequestMethod.GET)

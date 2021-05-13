@@ -31,7 +31,7 @@ public class Customer {
     @Column
     private String contactPerson;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<SaleInvoice> saleInvoices;
 

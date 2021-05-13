@@ -21,7 +21,7 @@ public class SaleInvoice {
     @ManyToOne
     private Customer customer;
 
-    @OneToMany(mappedBy = "salesInvoice")
+    @OneToMany(mappedBy = "salesInvoice", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<SaleDetail> saleDetails;
 
     public SaleInvoice() {
