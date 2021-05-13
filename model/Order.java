@@ -1,5 +1,6 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -31,16 +32,18 @@ public class Order {
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "order")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private DeliveryNote deliveryNote;
+    @JsonIgnore
+    private ReceivingNote receivingNote;
 
-    public Order(int order_id, Date date, Staff staff, Provider provider, List<OrderDetail> orderDetails) {
+    public Order(int order_id, Date date, Staff staff, Provider provider, List<OrderDetail> orderDetails, ReceivingNote receivingNote) {
         this.order_id = order_id;
         this.date = date;
         this.staff = staff;
         this.provider = provider;
         this.orderDetails = orderDetails;
+        this.receivingNote = receivingNote;
     }
 
     public Order() {
@@ -84,5 +87,13 @@ public class Order {
 
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public ReceivingNote getReceivingNote() {
+        return receivingNote;
+    }
+
+    public void setReceivingNote(ReceivingNote receivingNote) {
+        this.receivingNote = receivingNote;
     }
 }
