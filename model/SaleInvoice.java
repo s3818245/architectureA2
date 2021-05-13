@@ -1,4 +1,6 @@
 package com.example.sadi_assignment2_s3819293.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +20,6 @@ public class SaleInvoice {
 
     @ManyToOne
     private Customer customer;
-
 
     @OneToMany(mappedBy = "salesInvoice")
     private List<SaleDetail> saleDetails;

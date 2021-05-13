@@ -23,7 +23,8 @@ public class ReceivingNote {
     @OneToMany(mappedBy = "receivingNote")
     private List<ReceivingDetail> receivingDetails;
 
-    @OneToOne(mappedBy = "deliveryNote", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Order order;
 
@@ -68,6 +69,14 @@ public class ReceivingNote {
 
     public void setReceivingDetails(List<ReceivingDetail> receivingDetails) {
         this.receivingDetails = receivingDetails;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
 

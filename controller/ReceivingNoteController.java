@@ -18,7 +18,7 @@ public class ReceivingNoteController {
         return receivingNoteService.getAllReceivingNote();
     }
 
-    @RequestMapping(path = "/receivingNote/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/receivingNotes/{id}", method = RequestMethod.GET)
     public ReceivingNote getReceivingNote(@PathVariable int id) {
         return receivingNoteService.getOneReceivingNote(id);
     }

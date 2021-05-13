@@ -24,27 +24,6 @@ public class StaffController {
 
     @RequestMapping(path = "/staffs/{id}", method = RequestMethod.PUT)
     public Staff updateStaff(@PathVariable int id, @RequestBody Staff staff){
-        Staff oldStaff = this.staffService.getAStaff(id);
-
-        if (oldStaff != null){
-            if (staff.getAddress() == null){
-                staff.setAddress(oldStaff.getAddress());
-            }
-            if(staff.getEmail() == null){
-                staff.setEmail(oldStaff.getEmail());
-            }
-            if(staff.getName() == null){
-                staff.setName(oldStaff.getName());
-            }
-            if(staff.getAddress() == null){
-                staff.setAddress(oldStaff.getAddress());
-            }
-            if(staff.getPhone() == null){
-                staff.setPhone(oldStaff.getPhone());
-            }
-        }else{
-
-        }
         return this.staffService.updateStaff(staff);
     }
 

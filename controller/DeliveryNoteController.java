@@ -1,10 +1,7 @@
 package com.example.sadi_assignment2_s3819293.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,13 +18,23 @@ public class DeliveryNoteController {
         return deliveryNoteService.getAllDeliveryNote();
     }
 
-    @RequestMapping(path = "/deliveryNote/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/deliveryNotes/{id}", method = RequestMethod.GET)
     public DeliveryNote getDeliveryNote(@PathVariable int id) {
-        return deliveryNoteService.getOneDeliveryNote(id);
+        return this.deliveryNoteService.getOneDeliveryNote(id);
     }
 
     @RequestMapping(path = "/deliveryNotes", method = RequestMethod.POST)
     public int addDeliveryNote(DeliveryNote deliveryNote) {
-        return deliveryNoteService.addDeliveryNote(deliveryNote);
+        return this.deliveryNoteService.addDeliveryNote(deliveryNote);
+    }
+
+    @RequestMapping(path = "/deliveryNotes/{id}", method = RequestMethod.DELETE)
+    public String deleteDeliveryNote(@PathVariable int id) {
+        return this.deliveryNoteService.deleteDeliveryNote(id);
+    }
+
+    @RequestMapping(path = "/deliveryNotes", method = RequestMethod.PUT)
+    public DeliveryNote updateDeliveryNote(@RequestBody DeliveryNote deliveryNote) {
+        return this.deliveryNoteService.updateDeliveryNote(deliveryNote);
     }
 }

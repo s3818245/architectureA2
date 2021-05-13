@@ -1,5 +1,7 @@
 package com.example.sadi_assignment2_s3819293.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
 public class Customer {
 
     @Id
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customer_id;
 
     @Column
@@ -30,6 +32,7 @@ public class Customer {
     private String contactPerson;
 
     @OneToMany(mappedBy = "customer")
+    @JsonIgnore
     private List<SaleInvoice> saleInvoices;
 
     public Customer() {

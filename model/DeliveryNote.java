@@ -16,7 +16,7 @@ public class DeliveryNote {
     @OneToOne
     private Staff staff;
 
-    @OneToMany(mappedBy = "deliveryDetail")
+    @OneToMany(mappedBy = "deliveryNote")
     private List<DeliveryDetail> deliveryDetails;
 
     public DeliveryNote() {
