@@ -34,7 +34,16 @@ public class SaleInvoiceService {
     }
 
     public int addSaleInvoice(SaleInvoice saleInvoice) {
-        this.sessionFactory.getCurrentSession().save(saleInvoice);
+        if (saleInvoice != null) {
+            for (SaleDetail saleDetail: saleInvoice.getSaleDetails()) {
+                saleDetail.setSalesInvoice(saleInvoice);
+
+                this.sessionFactory.getCurrentSession().save(saleDetail.getProduct());
+
+                this.sessionFactory.getCurrentSession().save(saleDetail.getSalesInvoice());
+            }
+        }
+        this.sessionFactory.getCurrentSession().saveOrUpdate(saleInvoice);
         return saleInvoice.getSale_invoice_id();
     }
 
@@ -50,6 +59,10 @@ public class SaleInvoiceService {
         if (saleInvoice.getSaleDetails() != null) {
             for (SaleDetail saleDetail: saleInvoice.getSaleDetails()) {
                 saleDetail.setSalesInvoice(saleInvoice);
+
+                this.sessionFactory.getCurrentSession().update(saleDetail.getProduct());
+
+                this.sessionFactory.getCurrentSession().update(saleDetail.getSalesInvoice());
             }
         }
         this.sessionFactory.getCurrentSession().update(saleInvoice);

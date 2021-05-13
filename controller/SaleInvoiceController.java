@@ -19,22 +19,27 @@ public class SaleInvoiceController {
         return saleInvoiceService.getAllSaleInvoice();
     }
 
-    @RequestMapping(path = "/saleInvoices", method = RequestMethod.POST)
+    @RequestMapping(path = "/addSaleInvoice", method = RequestMethod.POST)
     public int addSaleInvoice(SaleInvoice saleInvoice) {
         return saleInvoiceService.addSaleInvoice(saleInvoice);
     }
 
-    @RequestMapping(path = "/saleInvoices/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/deleteSaleInvoice/{id}", method = RequestMethod.DELETE)
     public String deleteSaleInvoice(@PathVariable int id) {
         return saleInvoiceService.deleteSaleInvoice(id);
     }
 
-    @RequestMapping(path = "/saleInvoice/{id}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/updateSaleInvoice/{id}", method = RequestMethod.PUT)
     public SaleInvoice updateSaleInvoice(@RequestBody SaleInvoice saleInvoice, @PathVariable int id) {
         SaleInvoice updateSaleInvoice = saleInvoiceService.getSaleInvoiceById(id);
         if (updateSaleInvoice != null) {
-            this.saleInvoiceService.updateSaleInvoice(updateSaleInvoice);
+            this.saleInvoiceService.updateSaleInvoice(saleInvoice);
         }
-        return updateSaleInvoice;
+        return saleInvoice;
+    }
+
+    @RequestMapping(path = "/getSaleInvoice/{id}", method = RequestMethod.GET)
+    public SaleInvoice getSaleInvoice(@PathVariable int id) {
+        return saleInvoiceService.getSaleInvoiceById(id);
     }
 }

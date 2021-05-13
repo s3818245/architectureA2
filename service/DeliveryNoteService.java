@@ -38,8 +38,10 @@ public class DeliveryNoteService {
             deliveryDetail.setDeliveryNote(deliveryNote);
             //save the details of the receiving note
             this.sessionFactory.getCurrentSession().save(deliveryDetail);
-        }
 
+            this.sessionFactory.getCurrentSession().save(deliveryDetail.getProduct());
+        }
+        this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryNote);
         return deliveryNote.getDelivery_note_id();
     }
 
@@ -54,7 +56,14 @@ public class DeliveryNoteService {
     public DeliveryNote updateDeliveryNote(DeliveryNote deliveryNote) {
         if (deliveryNote.getDeliveryDetails() != null) {
             for (DeliveryDetail deliveryDetail: deliveryNote.getDeliveryDetails()) {
+                //set the delivery note in the delivery detail to be the current one
                 deliveryDetail.setDeliveryNote(deliveryNote);
+                //save the details of the receiving note
+                this.sessionFactory.getCurrentSession().update(deliveryDetail);
+
+                if (deliveryDetail.getProduct() != null) {
+                    this.sessionFactory.getCurrentSession().update(deliveryDetail.getProduct());
+                }
             }
         }
         sessionFactory.getCurrentSession().update(deliveryNote);

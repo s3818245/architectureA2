@@ -37,7 +37,7 @@ public class CustomerService {
     }
 
     public int addCustomer(Customer customer) {
-        this.sessionFactory.getCurrentSession().save(customer);
+        this.sessionFactory.getCurrentSession().saveOrUpdate(customer);
         return customer.getCustomer_id();
     }
 

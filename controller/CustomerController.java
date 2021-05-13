@@ -18,8 +18,13 @@ public class CustomerController {
         return customerService.getAllCustomer();
     }
 
+    @RequestMapping(path = "/getCustomer/{id}", method = RequestMethod.GET)
+    public Customer getCustomer(@PathVariable int id) {
+        return customerService.getCustomerById(id);
+    }
+
     @RequestMapping(path = "/addCustomer", method = RequestMethod.POST)
-    public int addCustomer(Customer customer) {
+    public int addCustomer(@RequestBody Customer customer) {
         customerService.addCustomer(customer);
         return customer.getCustomer_id();
     }

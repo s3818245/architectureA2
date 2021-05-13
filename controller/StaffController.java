@@ -17,7 +17,6 @@ public class StaffController {
         return staffService.getAllStaff();
     }
 
-
     @RequestMapping(path = "/staffs", method = RequestMethod.POST)
     public int addStaff(@RequestBody Staff staff){
         return staffService.addStaff(staff);

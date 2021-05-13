@@ -1,14 +1,12 @@
-package com.quynhanh.architecturea2.controllers;
+package com.example.sadi_assignment2_s3819293.controller;
 
-import com.quynhanh.architecturea2.model.ReceivingNote;
-import com.quynhanh.architecturea2.service.ReceivingNoteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import com.example.sadi_assignment2_s3819293.model.ReceivingNote;
+import com.example.sadi_assignment2_s3819293.service.ReceivingNoteService;
 
 @RestController
 public class ReceivingNoteController {
@@ -18,6 +16,11 @@ public class ReceivingNoteController {
     @RequestMapping(path = "/receivingNotes", method = RequestMethod.GET)
     public List<ReceivingNote> getAllReceivingNote() {
         return receivingNoteService.getAllReceivingNote();
+    }
+
+    @RequestMapping(path = "/receivingNote/{id}", method = RequestMethod.GET)
+    public ReceivingNote getReceivingNote(@PathVariable int id) {
+        return receivingNoteService.getOneReceivingNote(id);
     }
 
     @RequestMapping(path = "/receivingNotes", method = RequestMethod.POST)
