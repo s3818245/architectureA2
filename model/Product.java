@@ -1,4 +1,4 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
@@ -15,7 +15,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int product_id;
+    private int id;
 
     @Column
     private String name;
@@ -46,15 +46,14 @@ public class Product {
     private List<OrderDetail> orderDetails;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
-    private List<SaleDetail> saleDetails;
+    private List<ReceivingDetail> receivingDetails;
 
     public Product() {
     }
 
-    public Product(int product_id, String name, String model, String brand, String company, String description, Category category, double sellingPrice, List<OrderDetail> orderDetails, List<SaleDetail> saleDetails) {
-        this.product_id = product_id;
+    public Product(int id, String name, String model, String brand, String company, String description, Category category, double sellingPrice, List<OrderDetail> orderDetails) {
+        this.id = id;
         this.name = name;
         this.model = model;
         this.brand = brand;
@@ -63,7 +62,6 @@ public class Product {
         this.category = category;
         this.sellingPrice = sellingPrice;
         this.orderDetails = orderDetails;
-        this.saleDetails = saleDetails;
     }
 
     public double getSellingPrice() {
@@ -74,12 +72,12 @@ public class Product {
         this.sellingPrice = sellingPrice;
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public int getId() {
+        return id;
     }
 
-    public void setProduct_id(int id) {
-        this.product_id = id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -128,21 +126,5 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public List<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    public List<SaleDetail> getSaleDetails() {
-        return saleDetails;
-    }
-
-    public void setSaleDetails(List<SaleDetail> saleDetails) {
-        this.saleDetails = saleDetails;
     }
 }

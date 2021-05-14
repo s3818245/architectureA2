@@ -1,7 +1,7 @@
-package com.example.sadi_assignment2_s3819293.controller;
+package com.quynhanh.architecturea2.controllers;
 
-import com.example.sadi_assignment2_s3819293.model.Staff;
-import com.example.sadi_assignment2_s3819293.service.StaffService;
+import com.quynhanh.architecturea2.model.Staff;
+import com.quynhanh.architecturea2.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +17,14 @@ public class StaffController {
         return staffService.getAllStaff();
     }
 
+
     @RequestMapping(path = "/staffs", method = RequestMethod.POST)
     public int addStaff(@RequestBody Staff staff){
         return staffService.addStaff(staff);
     }
 
-    @RequestMapping(path = "/staffs/{id}", method = RequestMethod.PUT)
-    public Staff updateStaff(@PathVariable int id, @RequestBody Staff staff){
+    @RequestMapping(path = "/staffs", method = RequestMethod.PUT)
+    public Staff updateStaff(@RequestBody Staff staff){
         return this.staffService.updateStaff(staff);
     }
 

@@ -1,4 +1,4 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,15 +26,15 @@ public class Staff {
     @Column
     private String email;
 
-    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.MERGE)
     @JsonIgnore
     private List<Order> orderList;
 
-    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.MERGE)
     @JsonIgnore
     private List<ReceivingNote> receivingNotes;
 
-    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.MERGE)
     @JsonIgnore
     private List<SaleInvoice> saleInvoices;
 

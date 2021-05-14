@@ -1,6 +1,7 @@
-package com.example.sadi_assignment2_s3819293.service;
-import com.example.sadi_assignment2_s3819293.model.Order;
-import com.example.sadi_assignment2_s3819293.model.OrderDetail;
+package com.quynhanh.architecturea2.service;
+import com.quynhanh.architecturea2.model.Order;
+import com.quynhanh.architecturea2.model.OrderDetail;
+import com.quynhanh.architecturea2.model.Product;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +49,20 @@ public class OrderService {
     }
 
     public Order updateOrder(Order order){
-        this.sessionFactory.getCurrentSession().update(order.getProvider());
+        this.sessionFactory.getCurrentSession().saveOrUpdate(order.getProvider());
         //loop through the order details for updating
-        for(OrderDetail orderDetail: order.getOrderDetails()){
-            orderDetail.setOrder(order);
-            //update category
-            this.sessionFactory.getCurrentSession().update(orderDetail.getProduct().getCategory());
-            //update order detail
-            this.sessionFactory.getCurrentSession().update(orderDetail.getProduct());
+        if (order.getOrderDetails() != null){
+            for(OrderDetail orderDetail: order.getOrderDetails()){
+                orderDetail.setOrder(order);
+                //update order detail
+                if (orderDetail.getProduct()!=null){
+                    this.sessionFactory.getCurrentSession().saveOrUpdate(orderDetail.getProduct());
+                    //update category
+                    if(orderDetail.getProduct().getCategory()!=null){
+                        this.sessionFactory.getCurrentSession().saveOrUpdate(orderDetail.getProduct().getCategory());
+                    }
+                }
+            }
         }
         this.sessionFactory.getCurrentSession().update(order);
         return order;

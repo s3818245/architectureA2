@@ -1,12 +1,11 @@
-package com.example.sadi_assignment2_s3819293.controller;
+package com.quynhanh.architecturea2.controllers;
 
+import com.quynhanh.architecturea2.model.ReceivingNote;
+import com.quynhanh.architecturea2.service.ReceivingNoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import com.example.sadi_assignment2_s3819293.model.ReceivingNote;
-import com.example.sadi_assignment2_s3819293.service.ReceivingNoteService;
 
 @RestController
 public class ReceivingNoteController {
@@ -18,13 +17,23 @@ public class ReceivingNoteController {
         return receivingNoteService.getAllReceivingNote();
     }
 
-    @RequestMapping(path = "/receivingNotes/{id}", method = RequestMethod.GET)
-    public ReceivingNote getReceivingNote(@PathVariable int id) {
-        return receivingNoteService.getOneReceivingNote(id);
-    }
-
     @RequestMapping(path = "/receivingNotes", method = RequestMethod.POST)
     public int addReceivingNote(@RequestBody ReceivingNote receivingNote){
         return this.receivingNoteService.addReceivingDetails(this.receivingNoteService.addReceivingNote(receivingNote));
+    }
+
+//    @RequestMapping(path = "/receivingNotes", method = RequestMethod.PUT)
+//    public ReceivingNote updateReceivingNotes(){
+//
+//    }
+
+    @RequestMapping(path = "/receivingNotes", method = RequestMethod.DELETE)
+    public String deleteReceivingNote(@RequestBody ReceivingNote receivingNote){
+        return this.receivingNoteService.deleteReceivingNote(receivingNote);
+    }
+
+    @RequestMapping(path = "receivingNotes/{id}", method = RequestMethod.GET)
+    public ReceivingNote getAReceivingNote(@PathVariable int id){
+        return this.receivingNoteService.getOneReceivingNote(id);
     }
 }

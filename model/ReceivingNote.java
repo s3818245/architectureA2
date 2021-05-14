@@ -1,8 +1,11 @@
-package com.example.sadi_assignment2_s3819293.model;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+package com.quynhanh.architecturea2.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.util.Date;
 import java.util.List;
 
@@ -21,22 +24,16 @@ public class ReceivingNote {
     private Staff staff;
 
     @OneToMany(mappedBy = "receivingNote")
+    @Fetch(FetchMode.SUBSELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<ReceivingDetail> receivingDetails;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn //this table contain receiving not
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Order order;
 
     public ReceivingNote() {
-    }
-
-    public ReceivingNote(int receiving_note_id, Date date, Staff staff, List<ReceivingDetail> receivingDetails, Order order) {
-        this.receiving_note_id = receiving_note_id;
-        this.date = date;
-        this.staff = staff;
-        this.receivingDetails = receivingDetails;
-        this.order = order;
     }
 
     public int getReceiving_note_id() {

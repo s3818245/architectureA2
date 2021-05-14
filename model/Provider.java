@@ -1,4 +1,4 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
