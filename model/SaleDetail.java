@@ -21,7 +21,7 @@ public class SaleDetail {
     private double price;
 
     @ManyToOne
-    @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
     @ManyToOne

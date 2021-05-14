@@ -1,4 +1,7 @@
 package com.example.sadi_assignment2_s3819293.model;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -19,14 +22,20 @@ public class DeliveryNote {
     @OneToMany(mappedBy = "deliveryNote")
     private List<DeliveryDetail> deliveryDetails;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private SaleInvoice saleInvoice;
+
     public DeliveryNote() {
     }
 
-    public DeliveryNote(int delivery_note_id, Date date, Staff staff, List<DeliveryDetail> deliveryDetails) {
+    public DeliveryNote(int delivery_note_id, Date date, Staff staff, List<DeliveryDetail> deliveryDetails, SaleInvoice saleInvoice) {
         this.delivery_note_id = delivery_note_id;
         this.date = date;
         this.staff = staff;
         this.deliveryDetails = deliveryDetails;
+        this.saleInvoice = saleInvoice;
     }
 
     public int getDelivery_note_id() {
@@ -59,5 +68,13 @@ public class DeliveryNote {
 
     public void setDeliveryDetails(List<DeliveryDetail> deliveryDetails) {
         this.deliveryDetails = deliveryDetails;
+    }
+
+    public SaleInvoice getSaleInvoice() {
+        return saleInvoice;
+    }
+
+    public void setSaleInvoice(SaleInvoice saleInvoice) {
+        this.saleInvoice = saleInvoice;
     }
 }

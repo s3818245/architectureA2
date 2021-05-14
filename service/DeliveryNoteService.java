@@ -1,6 +1,7 @@
 package com.example.sadi_assignment2_s3819293.service;
 import com.example.sadi_assignment2_s3819293.model.DeliveryDetail;
 import com.example.sadi_assignment2_s3819293.model.DeliveryNote;
+import com.example.sadi_assignment2_s3819293.model.SaleDetail;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,16 +34,30 @@ public class DeliveryNoteService {
     }
 
     public int addDeliveryNote(DeliveryNote deliveryNote) {
-        for (DeliveryDetail deliveryDetail: deliveryNote.getDeliveryDetails()) {
-            //set the delivery note in the delivery detail to be the current one
-            deliveryDetail.setDeliveryNote(deliveryNote);
-            //save the details of the receiving note
-            this.sessionFactory.getCurrentSession().save(deliveryDetail);
-
-            this.sessionFactory.getCurrentSession().save(deliveryDetail.getProduct());
-        }
-        this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryNote);
+//        for (DeliveryDetail deliveryDetail: deliveryNote.getDeliveryDetails()) {
+//            //set the delivery note in the delivery detail to be the current one
+//            deliveryDetail.setDeliveryNote(deliveryNote);
+//            //save the details of the receiving note
+//            this.sessionFactory.getCurrentSession().save(deliveryDetail);
+//
+//            this.sessionFactory.getCurrentSession().save(deliveryDetail.getProduct());
+//        }
+        this.sessionFactory.getCurrentSession().save(deliveryNote);
         return deliveryNote.getDelivery_note_id();
+    }
+
+    public int addDeliveryDetails(int deliveryID) {
+        DeliveryNote deliveryNote = this.sessionFactory.getCurrentSession().get(DeliveryNote.class, deliveryID);
+        if (deliveryNote.getSaleInvoice().getSaleDetails() != null) {
+            for (SaleDetail saleDetail: deliveryNote.getSaleInvoice().getSaleDetails()) {
+                DeliveryDetail newDetail = new DeliveryDetail();
+                newDetail.setDeliveryNote(deliveryNote);
+                newDetail.setProduct(saleDetail.getProduct());
+                newDetail.setQuantity(saleDetail.getQuantity());
+                this.sessionFactory.getCurrentSession().save(newDetail);
+            }
+        }
+        return deliveryID;
     }
 
     public String deleteDeliveryNote(int id) {

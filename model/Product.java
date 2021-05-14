@@ -1,6 +1,8 @@
 package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -38,14 +40,20 @@ public class Product {
     @Column
     private double sellingPrice;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
     private List<OrderDetail> orderDetails;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
+    private List<SaleDetail> saleDetails;
 
     public Product() {
     }
 
-    public Product(int product_id, String name, String model, String brand, String company, String description, Category category, double sellingPrice, List<OrderDetail> orderDetails) {
+    public Product(int product_id, String name, String model, String brand, String company, String description, Category category, double sellingPrice, List<OrderDetail> orderDetails, List<SaleDetail> saleDetails) {
         this.product_id = product_id;
         this.name = name;
         this.model = model;
@@ -55,6 +63,7 @@ public class Product {
         this.category = category;
         this.sellingPrice = sellingPrice;
         this.orderDetails = orderDetails;
+        this.saleDetails = saleDetails;
     }
 
     public double getSellingPrice() {
@@ -119,5 +128,21 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
+    public List<SaleDetail> getSaleDetails() {
+        return saleDetails;
+    }
+
+    public void setSaleDetails(List<SaleDetail> saleDetails) {
+        this.saleDetails = saleDetails;
     }
 }

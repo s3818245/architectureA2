@@ -24,8 +24,8 @@ public class DeliveryNoteController {
     }
 
     @RequestMapping(path = "/deliveryNotes", method = RequestMethod.POST)
-    public int addDeliveryNote(DeliveryNote deliveryNote) {
-        return this.deliveryNoteService.addDeliveryNote(deliveryNote);
+    public int addDeliveryNote(@RequestBody DeliveryNote deliveryNote) {
+        return this.deliveryNoteService.addDeliveryDetails(this.deliveryNoteService.addDeliveryNote(deliveryNote));
     }
 
     @RequestMapping(path = "/deliveryNotes/{id}", method = RequestMethod.DELETE)
