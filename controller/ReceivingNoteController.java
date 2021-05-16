@@ -22,10 +22,10 @@ public class ReceivingNoteController {
         return this.receivingNoteService.addReceivingDetails(this.receivingNoteService.addReceivingNote(receivingNote));
     }
 
-//    @RequestMapping(path = "/receivingNotes", method = RequestMethod.PUT)
-//    public ReceivingNote updateReceivingNotes(){
-//
-//    }
+    @RequestMapping(path = "/receivingNotes", method = RequestMethod.PUT)
+    public ReceivingNote updateReceivingNotes(@RequestBody ReceivingNote receivingNote){
+        return this.receivingNoteService.updateReceivingDetails(this.receivingNoteService.updateReceivingNote(receivingNote));
+    }
 
     @RequestMapping(path = "/receivingNotes", method = RequestMethod.DELETE)
     public String deleteReceivingNote(@RequestBody ReceivingNote receivingNote){
