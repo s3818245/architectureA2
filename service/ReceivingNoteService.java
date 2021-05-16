@@ -104,4 +104,13 @@ public class ReceivingNoteService {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReceivingNote.class);
         return criteria.list();
     }
+
+    public List<ReceivingNote> getNoteByDate(Date start, Date end){
+        Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(ReceivingNote.class)
+                .add(Restrictions.between("date", start, end));
+//        return this.sessionFactory.getCurrentSession().createQuery("FROM ReceivingNote as note where note.date = :date").
+//                setTimestamp("date", date).list();
+        List<ReceivingNote> noteList = criteria.list();
+        return noteList;
+    }
 }
