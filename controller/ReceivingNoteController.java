@@ -1,10 +1,13 @@
-package com.quynhanh.architecturea2.controllers;
+package com.example.sadi_assignment2_s3819293.controller;
 
-import com.quynhanh.architecturea2.model.ReceivingNote;
-import com.quynhanh.architecturea2.service.ReceivingNoteService;
+import com.example.sadi_assignment2_s3819293.model.ReceivingNote;
+import com.example.sadi_assignment2_s3819293.service.ReceivingNoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -32,12 +35,12 @@ public class ReceivingNoteController {
         return this.receivingNoteService.deleteReceivingNote(receivingNote);
     }
 
-    @RequestMapping(path = "receivingNotes/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/receivingNotes/{id}", method = RequestMethod.GET)
     public ReceivingNote getAReceivingNote(@PathVariable int id){
         return this.receivingNoteService.getOneReceivingNote(id);
     }
 
-    @RequestMapping(path = "receivingNotes/filter", method = RequestMethod.GET)
+    @RequestMapping(path = "/receivingNotes/filter", method = RequestMethod.GET)
     public List<ReceivingNote> getNoteByDate(@RequestParam(required = false) String date, @RequestParam(required = false) String start, @RequestParam(required = false) String end){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if(date != null && start==null && end == null){
@@ -46,9 +49,9 @@ public class ReceivingNoteController {
             String endDate = date+" 23:59:59";
 
             try {
-                Date morning = format.parse(startDate);
-                Date night = format.parse(endDate);
-                return this.receivingNoteService.getNoteByDate(morning, night);
+                Date atStart = format.parse(startDate);
+                Date atEnd = format.parse(endDate);
+                return this.receivingNoteService.getNoteByDate(atStart, atEnd);
             } catch (ParseException e) {
                 e.printStackTrace();
                 return null;

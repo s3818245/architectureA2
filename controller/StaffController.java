@@ -1,7 +1,7 @@
-package com.quynhanh.architecturea2.controllers;
+package com.example.sadi_assignment2_s3819293.controller;
 
-import com.quynhanh.architecturea2.model.Staff;
-import com.quynhanh.architecturea2.service.StaffService;
+import com.example.sadi_assignment2_s3819293.model.Staff;
+import com.example.sadi_assignment2_s3819293.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

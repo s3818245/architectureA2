@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
@@ -49,10 +49,19 @@ public class Product {
     @JsonIgnore
     private List<ReceivingDetail> receivingDetails;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
+    private List<SaleDetail> saleDetails;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<DeliveryDetail> deliveryDetails;
+
     public Product() {
     }
 
-    public Product(int id, String name, String model, String brand, String company, String description, Category category, double sellingPrice, List<OrderDetail> orderDetails) {
+    public Product(int id, String name, String model, String brand, String company, String description, Category category, double sellingPrice, List<OrderDetail> orderDetails, List<ReceivingDetail> receivingDetails, List<SaleDetail> saleDetails, List<DeliveryDetail> deliveryDetails) {
         this.id = id;
         this.name = name;
         this.model = model;
@@ -62,13 +71,19 @@ public class Product {
         this.category = category;
         this.sellingPrice = sellingPrice;
         this.orderDetails = orderDetails;
+        this.receivingDetails = receivingDetails;
+        this.saleDetails = saleDetails;
+        this.deliveryDetails = deliveryDetails;
     }
 
-    public double getSellingPrice() {
-        return sellingPrice;
-    }
-
-    public void setSellingPrice(double sellingPrice) {
+    public Product(int id, String name, String model, String brand, String company, String description, Category category, double sellingPrice) {
+        this.id = id;
+        this.name = name;
+        this.model = model;
+        this.brand = brand;
+        this.company = company;
+        this.description = description;
+        this.category = category;
         this.sellingPrice = sellingPrice;
     }
 
@@ -126,5 +141,45 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public double getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(double sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
+    public List<ReceivingDetail> getReceivingDetails() {
+        return receivingDetails;
+    }
+
+    public void setReceivingDetails(List<ReceivingDetail> receivingDetails) {
+        this.receivingDetails = receivingDetails;
+    }
+
+    public List<SaleDetail> getSaleDetails() {
+        return saleDetails;
+    }
+
+    public void setSaleDetails(List<SaleDetail> saleDetails) {
+        this.saleDetails = saleDetails;
+    }
+
+    public List<DeliveryDetail> getDeliveryDetails() {
+        return deliveryDetails;
+    }
+
+    public void setDeliveryDetails(List<DeliveryDetail> deliveryDetails) {
+        this.deliveryDetails = deliveryDetails;
     }
 }

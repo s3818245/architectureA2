@@ -1,7 +1,7 @@
-package com.quynhanh.architecturea2.service;
+package com.example.sadi_assignment2_s3819293.service;
 
+import com.example.sadi_assignment2_s3819293.model.Staff;
 
-import com.quynhanh.architecturea2.model.Staff;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

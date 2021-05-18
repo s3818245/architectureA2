@@ -1,7 +1,9 @@
-package com.quynhanh.architecturea2.service;
-import com.quynhanh.architecturea2.model.Order;
-import com.quynhanh.architecturea2.model.OrderDetail;
-import com.quynhanh.architecturea2.model.Product;
+package com.example.sadi_assignment2_s3819293.service;
+
+import com.example.sadi_assignment2_s3819293.model.Order;
+import com.example.sadi_assignment2_s3819293.model.OrderDetail;
+import com.example.sadi_assignment2_s3819293.model.Product;
+
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

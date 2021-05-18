@@ -1,17 +1,19 @@
-package com.quynhanh.architecturea2.service;
+package com.example.sadi_assignment2_s3819293.service;
 
-import com.quynhanh.architecturea2.model.Order;
-import com.quynhanh.architecturea2.model.OrderDetail;
-import com.quynhanh.architecturea2.model.ReceivingDetail;
-import com.quynhanh.architecturea2.model.ReceivingNote;
+import com.example.sadi_assignment2_s3819293.model.Order;
+import com.example.sadi_assignment2_s3819293.model.OrderDetail;
+import com.example.sadi_assignment2_s3819293.model.ReceivingDetail;
+import com.example.sadi_assignment2_s3819293.model.ReceivingNote;
 import org.hibernate.Criteria;
 import org.hibernate.QueryException;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -86,7 +88,8 @@ public class ReceivingNoteService {
 
     //function to update receiving details with new order
     public ReceivingNote updateReceivingDetails(int receivingId){
-        int updatedNoteId = addReceivingDetails(receivingId);//call function to update details with new order details
+        //call function to update details with new order details
+        int updatedNoteId = addReceivingDetails(receivingId);
         //get the updated note
         return this.sessionFactory.getCurrentSession().get(ReceivingNote.class, updatedNoteId);
     }

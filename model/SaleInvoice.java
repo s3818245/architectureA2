@@ -1,5 +1,7 @@
 package com.example.sadi_assignment2_s3819293.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -28,9 +30,10 @@ public class SaleInvoice {
     private Customer customer;
 
     @OneToMany(mappedBy = "salesInvoice", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT) //prevent order duplicates
     private List<SaleDetail> saleDetails;
 
-    @OneToOne(mappedBy = "saleInvoice")
+    @OneToOne(mappedBy = "saleInvoice", cascade = CascadeType.MERGE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private DeliveryNote deliveryNote;

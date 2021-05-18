@@ -3,6 +3,9 @@ package com.example.sadi_assignment2_s3819293.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.example.sadi_assignment2_s3819293.model.DeliveryNote;
@@ -18,11 +21,6 @@ public class DeliveryNoteController {
         return deliveryNoteService.getAllDeliveryNote();
     }
 
-    @RequestMapping(path = "/deliveryNotes/{id}", method = RequestMethod.GET)
-    public DeliveryNote getDeliveryNote(@PathVariable int id) {
-        return this.deliveryNoteService.getOneDeliveryNote(id);
-    }
-
     @RequestMapping(path = "/deliveryNotes", method = RequestMethod.POST)
     public int addDeliveryNote(@RequestBody DeliveryNote deliveryNote) {
         return this.deliveryNoteService.addDeliveryDetails(this.deliveryNoteService.addDeliveryNote(deliveryNote));
@@ -35,6 +33,45 @@ public class DeliveryNoteController {
 
     @RequestMapping(path = "/deliveryNotes", method = RequestMethod.PUT)
     public DeliveryNote updateDeliveryNote(@RequestBody DeliveryNote deliveryNote) {
-        return this.deliveryNoteService.updateDeliveryNote(deliveryNote);
+        return this.deliveryNoteService.updateDeliveryDetails(this.deliveryNoteService.updateDeliveryNote(deliveryNote));
+    }
+
+    @RequestMapping(path = "/deliveryNotes/{id}", method = RequestMethod.GET)
+    public DeliveryNote getADeliveryNote(@PathVariable int id) {
+        return this.deliveryNoteService.getOneDeliveryNote(id);
+    }
+
+    @RequestMapping(path = "/deliveryNotes/filter", method = RequestMethod.GET)
+    public List<DeliveryNote> getNoteByDate(@RequestParam(required = false) String date, @RequestParam(required = false) String start, @RequestParam(required = false) String end) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(date != null && start == null && end == null) {
+            String startDate = date + " 00:00:00";
+            String endDate = date + " 23:59:59";
+
+            try {
+                Date atStart = format.parse(startDate);
+                Date atEnd = format.parse(endDate);
+                return this.deliveryNoteService.getNoteByDate(atStart, atEnd);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        else if(start != null && end != null) {
+            start += " 00:00:00";
+            end += " 23:59:59";
+
+            try {
+                Date atStart = format.parse(start);
+                Date atEnd = format.parse(end);
+                return this.deliveryNoteService.getNoteByDate(atStart, atEnd);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        else {
+            return null;
+        }
     }
 }
