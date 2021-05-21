@@ -32,7 +32,7 @@ public class OrderController {
         return this.orderService.deleteOrder(order);
     }
 
-    @RequestMapping(path = "/order/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/orders/{id}", method = RequestMethod.GET)
     public Order getOrder(@PathVariable("id") int id){
         return this.orderService.getAnOrder(id);
     }
