@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import javax.persistence.*;
 
@@ -26,6 +26,10 @@ public class Category {
         this.category_id = category_id;
     }
 
+    public Category(String name) {
+        this.name = name;
+    }
+
     public Category() {
     }
 
@@ -44,6 +48,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "category_id=" + category_id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
 

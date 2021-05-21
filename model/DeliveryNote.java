@@ -1,8 +1,9 @@
 package com.example.sadi_assignment2_s3819293.model;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.util.Date;
 import java.util.List;
 
@@ -20,9 +21,11 @@ public class DeliveryNote {
     private Staff staff;
 
     @OneToMany(mappedBy = "deliveryNote")
+    @Fetch(FetchMode.SUBSELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<DeliveryDetail> deliveryDetails;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)
     private SaleInvoice saleInvoice;

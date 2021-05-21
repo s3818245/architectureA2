@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -37,6 +37,15 @@ public class Provider {
 
     public Provider(int provider_id, String name, String address, String phone, String fax, String email, String contactPerson) {
         this.provider_id = provider_id;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.fax = fax;
+        this.email = email;
+        this.contactPerson = contactPerson;
+    }
+
+    public Provider(String name, String address, String phone, String fax, String email, String contactPerson) {
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -103,6 +112,19 @@ public class Provider {
 
     public void setContactPerson(String contactPerson) {
         this.contactPerson = contactPerson;
+    }
+
+    @Override
+    public String toString() {
+        return "Provider{" +
+                "provider_id=" + provider_id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", fax='" + fax + '\'' +
+                ", email='" + email + '\'' +
+                ", contactPerson='" + contactPerson + '\'' +
+                '}';
     }
 }
 

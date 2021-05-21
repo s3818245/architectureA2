@@ -1,13 +1,17 @@
 package com.example.sadi_assignment2_s3819293.service;
 
+import com.example.sadi_assignment2_s3819293.model.Customer;
+import com.example.sadi_assignment2_s3819293.model.DeliveryNote;
 import com.example.sadi_assignment2_s3819293.model.SaleDetail;
 import com.example.sadi_assignment2_s3819293.model.SaleInvoice;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -67,5 +71,20 @@ public class SaleInvoiceService {
         }
         this.sessionFactory.getCurrentSession().update(saleInvoice);
         return saleInvoice;
+    }
+
+    public List<SaleInvoice> getInvoiceByDate(Date start, Date end) {
+        Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(SaleInvoice.class)
+                .add(Restrictions.between("date", start, end));
+        List<SaleInvoice> noteList = criteria.list();
+        return noteList;
+    }
+
+    public List<SaleInvoice> getInvoiceByCustomer(Date start, Date end) {
+
+    }
+
+    public List<SaleInvoice> getInvoiceByStaff(Date start, Date end) {
+
     }
 }

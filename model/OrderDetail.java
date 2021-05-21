@@ -1,5 +1,4 @@
-package com.quynhanh.architecturea2.model;
-
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
@@ -40,6 +39,20 @@ public class OrderDetail {
         this.order = order;
     }
 
+    public OrderDetail(int quantity, double price, Product product) {
+        this.quantity = quantity;
+        this.price = price;
+        this.product = product;
+    }
+
+    public OrderDetail(int order_detail_id, int quantity, double price, Product product) {
+        this.order_detail_id = order_detail_id;
+        this.quantity = quantity;
+        this.price = price;
+        this.product = product;
+        this.order = null;
+    }
+
     public int getOrder_detail_id() {
         return order_detail_id;
     }
@@ -78,6 +91,16 @@ public class OrderDetail {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "order_detail_id=" + order_detail_id +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", product=" + product.toString() +
+                '}';
     }
 }
 

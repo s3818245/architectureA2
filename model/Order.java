@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +50,37 @@ public class Order {
         this.receivingNote = receivingNote;
     }
 
+    public Order(int order_id, Date date, Staff staff, Provider provider, List<OrderDetail> orderDetails) {
+        this.order_id = order_id;
+        this.date = date;
+        this.staff = staff;
+        this.provider = provider;
+        this.orderDetails = orderDetails;
+        this.receivingNote = null;
+    }
+
+    public Order(Date date, Staff staff, Provider provider, List<OrderDetail> orderDetails) {
+        this.date = date;
+        this.staff = staff;
+        this.provider = provider;
+        this.orderDetails = orderDetails;
+        this.receivingNote = null;
+    }
+
     public Order() {
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        return "Order{" +
+                "order_id=" + order_id +
+                ", date=" + dateFormat.format(date) +
+                ", staff=" + staff.toString() +
+                ", provider=" + provider.toString() +
+                ", orderDetails=" + orderDetails.toString() +
+                '}';
     }
 
     public int getOrder_id() {
@@ -99,4 +130,6 @@ public class Order {
     public void setReceivingNote(ReceivingNote receivingNote) {
         this.receivingNote = receivingNote;
     }
+
+
 }

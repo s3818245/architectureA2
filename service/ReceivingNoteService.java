@@ -1,17 +1,19 @@
-package com.quynhanh.architecturea2.service;
+package com.example.sadi_assignment2_s3819293.service;
 
-import com.quynhanh.architecturea2.model.Order;
-import com.quynhanh.architecturea2.model.OrderDetail;
-import com.quynhanh.architecturea2.model.ReceivingDetail;
-import com.quynhanh.architecturea2.model.ReceivingNote;
+import com.example.sadi_assignment2_s3819293.model.Order;
+import com.example.sadi_assignment2_s3819293.model.OrderDetail;
+import com.example.sadi_assignment2_s3819293.model.ReceivingDetail;
+import com.example.sadi_assignment2_s3819293.model.ReceivingNote;
 import org.hibernate.Criteria;
 import org.hibernate.QueryException;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,38 +31,24 @@ public class ReceivingNoteService {
     }
 
     public int addReceivingNote(ReceivingNote receivingNote){
-//        receivingNote.getOrder().setReceivingNote(receivingNote);
-
+        //save receiving note to the database
         this.sessionFactory.getCurrentSession().save(receivingNote);
-//        if(receivingNote.getOrder().getOrderDetails()!=null){
-//            for (OrderDetail orderDetail : receivingNote.getOrder().getOrderDetails()){
-//                ReceivingDetail newDetail = new ReceivingDetail();
-//                newDetail.setReceivingNote(receivingNote);
-//                newDetail.setProduct(orderDetail.getProduct());
-//                newDetail.setQuantity(orderDetail.getQuantity());
-//                this.sessionFactory.getCurrentSession().save(newDetail);
-//            }
-//        }
-
-//        for (ReceivingDetail receivingDetail : receivingNote.getReceivingDetails()){
-//            //set the delivery note in the delivery detail to be the current one
-//            receivingDetail.setReceivingNote(receivingNote);
-//            //save the details of the receiving note
-//            this.sessionFactory.getCurrentSession().save(receivingDetail);
-//        }
-
+        //return the id of the new receiving note
         return receivingNote.getReceiving_note_id();
     }
 
-    //Function to add details for the newly created receiving note
+    //Function to add details for the newly created or updated receiving note
     public int addReceivingDetails(int receivingId){
 
         ReceivingNote receivingNote = this.sessionFactory.getCurrentSession().get(ReceivingNote.class, receivingId);
+        //if the receiving notes have details copied from the old order, delete it
+        if (!receivingNote.getReceivingDetails().isEmpty()){
+            for (ReceivingDetail oldDetail : receivingNote.getReceivingDetails()){
+                this.sessionFactory.getCurrentSession().delete(oldDetail);
+            }
+        }
 
-//        Query query = this.sessionFactory.getCurrentSession().createQuery("from Order where receivingNote = :noteId");
-//        query.setString("noteId", Integer.toString(receivingId));
-//        Order order = (Order) query.list().get(0);
-
+        //get products from order to copy to receiving details
         if(receivingNote.getOrder().getOrderDetails()!=null){
             for (OrderDetail orderDetail : receivingNote.getOrder().getOrderDetails()){
                 //create new receiving note detail for each order detail
@@ -80,14 +68,21 @@ public class ReceivingNoteService {
     }
 
     public int updateReceivingNote(ReceivingNote receivingNote){
+        //update receiving note to the database
         this.sessionFactory.getCurrentSession().update(receivingNote);
+        //return the receiving note id
         return receivingNote.getReceiving_note_id();
     }
 
     //function to update receiving details with new order
     public ReceivingNote updateReceivingDetails(int receivingId){
         int updatedNoteId = addReceivingDetails(receivingId);//call function to update details with new order details
-        //get the updated note
+
+        //clear data of current session
+        this.sessionFactory.getCurrentSession().flush();
+        this.sessionFactory.getCurrentSession().clear();
+
+        //get the updated note from the database
         return this.sessionFactory.getCurrentSession().get(ReceivingNote.class, updatedNoteId);
     }
 
@@ -97,7 +92,7 @@ public class ReceivingNoteService {
 
     public String deleteReceivingNote(ReceivingNote receivingNote) {
         sessionFactory.getCurrentSession().delete(receivingNote);
-        return "Delivery Note with id: " + receivingNote.getReceiving_note_id() + " is successfully deleted";
+        return "Receiving Note with id: " + receivingNote.getReceiving_note_id() + " is successfully deleted";
     }
 
     public List<ReceivingNote> getAllReceivingNote() {
@@ -108,8 +103,6 @@ public class ReceivingNoteService {
     public List<ReceivingNote> getNoteByDate(Date start, Date end){
         Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(ReceivingNote.class)
                 .add(Restrictions.between("date", start, end));
-//        return this.sessionFactory.getCurrentSession().createQuery("FROM ReceivingNote as note where note.date = :date").
-//                setTimestamp("date", date).list();
         List<ReceivingNote> noteList = criteria.list();
         return noteList;
     }

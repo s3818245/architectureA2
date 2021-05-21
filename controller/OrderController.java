@@ -1,7 +1,8 @@
-package com.quynhanh.architecturea2.controllers;
+package com.example.sadi_assignment2_s3819293.controller;
 
-import com.quynhanh.architecturea2.model.Order;
-import com.quynhanh.architecturea2.service.OrderService;
+import com.example.sadi_assignment2_s3819293.model.Order;
+import com.example.sadi_assignment2_s3819293.service.OrderService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -44,6 +44,30 @@ public class Staff {
         this.address = address;
         this.phone = phone;
         this.email = email;
+        this.orderList = null;
+        this.receivingNotes = null;
+        this.saleInvoices = null;
+    }
+
+    public Staff(String name, String address, String phone, String email) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.orderList = null;
+        this.receivingNotes = null;
+        this.saleInvoices = null;
+    }
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "staff_id=" + staff_id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 
     public Staff() {
