@@ -149,7 +149,7 @@ public class SaleInvoiceService {
             Customer customer = this.sessionFactory.getCurrentSession().get(Customer.class, id);
             if(customer != null) {
                 Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(SaleInvoice.class)
-                        .add(Restrictions.like("name", customer.getName(), MatchMode.ANYWHERE))
+                        .add(Restrictions.eq("customer", customer))
                         .add(Restrictions.between("date", start, end));
                 return criteria.list();
             }
@@ -161,7 +161,7 @@ public class SaleInvoiceService {
             Staff staff = this.sessionFactory.getCurrentSession().get(Staff.class, id);
             if (staff != null) {
                 Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(SaleInvoice.class)
-                        .add(Restrictions.like("name", staff.getName(), MatchMode.ANYWHERE))
+                        .add(Restrictions.eq("staff", staff))
                         .add(Restrictions.between("date", start, end));
                 return criteria.list();
             }
