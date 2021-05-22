@@ -25,6 +25,9 @@ public class SaleDetail {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
+    @Column
+    private double totalValue = 0;
+
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
@@ -93,5 +96,13 @@ public class SaleDetail {
 
     public void setSalesInvoice(SaleInvoice salesInvoice) {
         this.salesInvoice = salesInvoice;
+    }
+
+    public double getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(double totalValue) {
+        this.totalValue = totalValue;
     }
 }

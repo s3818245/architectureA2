@@ -35,41 +35,42 @@ public class SaleInvoiceService {
         return sessionFactory.getCurrentSession().get(SaleInvoice.class, id);
     }
 
-    //helper function to check whether a product has existed
-    //return the existed product
-    public Product checkProductExisted(Product product){
-        Criteria productCriteria = this.sessionFactory.getCurrentSession().createCriteria(Product.class);
-        List<Product> productList =  productCriteria.list();
+    public Product getProduct(int id){
+        return sessionFactory.getCurrentSession().get(Product.class, id);
+    }
 
-        //check if given product has the same infos as those in the product list
-        for (Product existedProduct : productList){
-            if (existedProduct.getName().equalsIgnoreCase(product.getName())
-                    && existedProduct.getBrand().equalsIgnoreCase(product.getBrand())
-                    && existedProduct.getCompany().equalsIgnoreCase(product.getCompany())
-                    && existedProduct.getDescription().equalsIgnoreCase(product.getDescription())
-                    && existedProduct.getModel().equalsIgnoreCase(product.getModel())
-                    && existedProduct.getSellingPrice() == product.getSellingPrice()){
-                return existedProduct;
+    public double totalValueOfInvoice(int id) {
+        double sumOfInvoice = 0;
+
+        for (SaleDetail saleDetail: getASaleInvoice(id).getSaleDetails()) {
+            if (getProduct(saleDetail.getProduct().getId()) != null) {
+                sumOfInvoice += saleDetail.getTotalValue();
             }
         }
 
-        //return null if no matching product is found
-        return null;
+        return sumOfInvoice;
     }
 
     public int addSaleInvoice(SaleInvoice saleInvoice) {
         for (SaleDetail saleDetail: saleInvoice.getSaleDetails()) {
             saleDetail.setSalesInvoice(saleInvoice);
 
-            if(checkProductExisted(saleDetail.getProduct())!= null) {
-                saleDetail.setPrice(checkProductExisted(saleDetail.getProduct()).getSellingPrice());
+            if(saleDetail.getProduct() != null) {
+                int id = saleDetail.getProduct().getId();
+                Product product = getProduct(id);
 
-                saleDetail.setProduct(checkProductExisted(saleDetail.getProduct()));
+                saleDetail.setPrice(product.getSellingPrice());
+
+                saleDetail.setProduct(product);
+
+                saleDetail.setTotalValue(product.getSellingPrice() * saleDetail.getQuantity());
             }
-
             this.sessionFactory.getCurrentSession().save(saleDetail.getSalesInvoice());
         }
-        //this.sessionFactory.getCurrentSession().save(saleInvoice);
+
+        saleInvoice.setTotalPrice(totalValueOfInvoice(saleInvoice.getSale_invoice_id()));
+
+        this.sessionFactory.getCurrentSession().save(saleInvoice);
 
         return saleInvoice.getSale_invoice_id();
     }
@@ -88,11 +89,14 @@ public class SaleInvoiceService {
                 saleDetail.setSalesInvoice(saleInvoice);
 
                 if (saleDetail.getProduct() != null) {
-                    if(checkProductExisted(saleDetail.getProduct())!= null) {
-                        saleDetail.setPrice(checkProductExisted(saleDetail.getProduct()).getSellingPrice());
+                    int id = saleDetail.getProduct().getId();
+                    Product product = getProduct(id);
 
-                        saleDetail.setProduct(checkProductExisted(saleDetail.getProduct()));
-                    }
+                    saleDetail.setPrice(product.getSellingPrice());
+
+                    saleDetail.setProduct(product);
+
+                    saleDetail.setTotalValue(product.getSellingPrice() * saleDetail.getQuantity());
                     //this.sessionFactory.getCurrentSession().save(saleDetail.getSalesInvoice());
                 }
             }
@@ -170,20 +174,7 @@ public class SaleInvoiceService {
         }
     }
 
-    public double totalValueOfInvoice(int id) {
-        double sumOfInvoice = 0;
-
-        for (SaleDetail saleDetail: getASaleInvoice(id).getSaleDetails()) {
-            if (checkProductExisted(saleDetail.getProduct()) != null) {
-                double sumOfProduct = saleDetail.getQuantity() * saleDetail.getProduct().getSellingPrice();
-                sumOfInvoice += sumOfProduct;
-            }
-        }
-
-        return sumOfInvoice;
-    }
-
-    public double revenueByDate(Date start, Date end) {
+    public double getRevenueByDate(Date start, Date end) {
         double revenue = 0;
 
         for (SaleInvoice saleInvoice: getInvoiceByDate(start, end)) {
@@ -193,7 +184,7 @@ public class SaleInvoiceService {
         return revenue;
     }
 
-    public double revenueByCustomerOrStaff(Date start, Date end, String objType, int id) {
+    public double getRevenueByCustomerOrStaff(Date start, Date end, String objType, int id) {
         double revenue = 0;
 
         for (SaleInvoice saleInvoice: getInvoiceByCustomerOrStaff(start, end, objType, id)) {

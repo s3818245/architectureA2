@@ -22,7 +22,7 @@ public class SaleInvoiceController {
     }
 
     @RequestMapping(path = "/saleInvoices", method = RequestMethod.POST)
-    public int addSaleInvoice(SaleInvoice saleInvoice) {
+    public int addSaleInvoice(@RequestBody SaleInvoice saleInvoice) {
         return saleInvoiceService.addSaleInvoice(saleInvoice);
     }
 

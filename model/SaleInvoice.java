@@ -39,6 +39,9 @@ public class SaleInvoice {
     @JsonIgnore
     private DeliveryNote deliveryNote;
 
+    @Column
+    private double totalPrice = 0;
+
     public SaleInvoice() {
     }
 
@@ -114,5 +117,13 @@ public class SaleInvoice {
 
     public void setDeliveryNote(DeliveryNote deliveryNote) {
         this.deliveryNote = deliveryNote;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }
