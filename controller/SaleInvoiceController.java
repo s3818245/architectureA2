@@ -1,7 +1,5 @@
 package com.example.sadi_assignment2_s3819293.controller;
 
-import com.example.sadi_assignment2_s3819293.model.SaleDetail;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +33,7 @@ public class SaleInvoiceController {
 
     @RequestMapping(path = "/saleInvoices/{id}", method = RequestMethod.PUT)
     public SaleInvoice updateSaleInvoice(@RequestBody SaleInvoice saleInvoice, @PathVariable int id) {
-        SaleInvoice updateSaleInvoice = saleInvoiceService.getSaleInvoiceById(id);
+        SaleInvoice updateSaleInvoice = saleInvoiceService.getASaleInvoice(id);
         if (updateSaleInvoice != null) {
             this.saleInvoiceService.updateSaleInvoice(saleInvoice);
         }
@@ -44,7 +42,7 @@ public class SaleInvoiceController {
 
     @RequestMapping(path = "/saleInvoices/{id}", method = RequestMethod.GET)
     public SaleInvoice getSaleInvoice(@PathVariable int id) {
-        return saleInvoiceService.getSaleInvoiceById(id);
+        return saleInvoiceService.getASaleInvoice(id);
     }
 
     @RequestMapping(path = "/saleInvoices/filter", method = RequestMethod.GET)
@@ -86,11 +84,61 @@ public class SaleInvoiceController {
     public List<SaleInvoice> getInvoiceBetweenDate(@RequestParam(value = "start") String start, @RequestParam(value = "end") String end) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+        if (start != null && end != null) {
+            try {
+                Date startDate = format.parse(start);
+                Date endDate = format.parse(end);
+
+                return this.saleInvoiceService.getInvoiceByDate(startDate, endDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        else {
+            return null;
+        }
+    }
+
+//    @RequestMapping(path = "/saleInvoices/filter/", params = {"customer_id", "start", "end"}, method = RequestMethod.GET)
+//    public List<SaleInvoice> getInvoiceByCustomer(@RequestParam(value = "customer_id") int id, @RequestParam(value = "start") String start, @RequestParam(value = "end") String end) {
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//
+//        try {
+//            Date startDate = format.parse(start);
+//            Date endDate = format.parse(end);
+//
+//            return this.saleInvoiceService.getInvoiceByCustomer(id, startDate, endDate);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+//
+//    @RequestMapping(path = "/saleInvoices/filter", params = {"staff_id", "start", "end"}, method = RequestMethod.GET)
+//    public List<SaleInvoice> getInvoiceByStaff(@RequestParam(value = "staff_id") int id, @RequestParam(value = "start") String start, @RequestParam(value = "end") String end) {
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//
+//        try {
+//            Date startDate = format.parse(start);
+//            Date endDate = format.parse(end);
+//
+//            return this.saleInvoiceService.getInvoiceByCustomer(id, startDate, endDate);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//            return null;
+//
+//        }
+//    }
+
+    @RequestMapping(path = "/saleInvoices/filter", params = {"id", "start", "end", "type"}, method = RequestMethod.GET)
+    public List<SaleInvoice> getInvoiceByCustomerOrStaff(@RequestParam(value = "id") int id, @RequestParam(value = "start") String start, @RequestParam(value = "end") String end, @RequestParam(value = "type") String type) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date startDate = format.parse(start);
             Date endDate = format.parse(end);
 
-            return this.saleInvoiceService.getInvoiceByDate(startDate, endDate);
+            return this.saleInvoiceService.getInvoiceByCustomerOrStaff(startDate, endDate, type, id);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;

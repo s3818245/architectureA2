@@ -33,7 +33,7 @@ public class CustomerService {
     }
 
     public Customer getCustomerById(int id) {
-        return sessionFactory.getCurrentSession().get(Customer.class, id);
+        return this.sessionFactory.getCurrentSession().get(Customer.class, id);
     }
 
     public int addCustomer(Customer customer) {

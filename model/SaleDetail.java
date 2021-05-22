@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "saledetail")
 public class SaleDetail {
 
     @Id
@@ -38,6 +39,20 @@ public class SaleDetail {
         this.price = price;
         this.product = product;
         this.salesInvoice = salesInvoice;
+    }
+
+    public SaleDetail(int sale_detail_id, int quantity, double price, Product product) {
+        this.sale_detail_id = sale_detail_id;
+        this.quantity = quantity;
+        this.price = price;
+        this.product = product;
+        this.salesInvoice = null;
+    }
+
+    public SaleDetail(int quantity, double price, Product product) {
+        this.quantity = quantity;
+        this.price = price;
+        this.product = product;
     }
 
     public int getSale_detail_id() {

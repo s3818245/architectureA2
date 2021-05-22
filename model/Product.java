@@ -1,8 +1,5 @@
 package com.example.sadi_assignment2_s3819293.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -63,17 +60,17 @@ public class Product {
 //        this.orderDetails = orderDetails;
     }
 
-    public Product(int id, String name, String model, String brand, String company, String description, Category category, double sellingPrice) {
-        this.id = id;
-        this.name = name;
-        this.model = model;
-        this.brand = brand;
-        this.company = company;
-        this.description = description;
-        this.category = category;
-        this.sellingPrice = sellingPrice;
-//        this.orderDetails = null;
-    }
+//    public Product(int id, String name, String model, String brand, String company, String description, Category category, double sellingPrice) {
+//        this.id = id;
+//        this.name = name;
+//        this.model = model;
+//        this.brand = brand;
+//        this.company = company;
+//        this.description = description;
+//        this.category = category;
+//        this.sellingPrice = sellingPrice;
+////        this.orderDetails = null;
+//    }
 
     public Product(String name, String model, String brand, String company, String description, Category category, double sellingPrice) {
         this.name = name;
@@ -189,8 +186,10 @@ public class Product {
     //     return deliveryDetails;
     // }
 
-    public void setDeliveryDetails(List<DeliveryDetail> deliveryDetails) {
-        this.deliveryDetails = deliveryDetails;
+    // public void setDeliveryDetails(List<DeliveryDetail> deliveryDetails) {
+    //     this.deliveryDetails = deliveryDetails;
+    // }
+
     @Override
     public String toString() {
         return "Product{" +

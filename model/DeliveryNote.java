@@ -4,10 +4,12 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "deliverynote")
 public class DeliveryNote {
 
     @Id
@@ -26,19 +28,11 @@ public class DeliveryNote {
     private List<DeliveryDetail> deliveryDetails;
 
     @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn
+    @JoinColumn //this table contain delivery note
     @OnDelete(action = OnDeleteAction.CASCADE)
     private SaleInvoice saleInvoice;
 
     public DeliveryNote() {
-    }
-
-    public DeliveryNote(int delivery_note_id, Date date, Staff staff, List<DeliveryDetail> deliveryDetails, SaleInvoice saleInvoice) {
-        this.delivery_note_id = delivery_note_id;
-        this.date = date;
-        this.staff = staff;
-        this.deliveryDetails = deliveryDetails;
-        this.saleInvoice = saleInvoice;
     }
 
     public int getDelivery_note_id() {

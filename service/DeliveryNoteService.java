@@ -36,20 +36,22 @@ public class DeliveryNoteService {
     }
 
     public int addDeliveryNote(DeliveryNote deliveryNote) {
-//        for (DeliveryDetail deliveryDetail: deliveryNote.getDeliveryDetails()) {
-//            //set the delivery note in the delivery detail to be the current one
-//            deliveryDetail.setDeliveryNote(deliveryNote);
-//            //save the details of the receiving note
-//            this.sessionFactory.getCurrentSession().save(deliveryDetail);
-//
-//            this.sessionFactory.getCurrentSession().save(deliveryDetail.getProduct());
-//        }
+        //
         this.sessionFactory.getCurrentSession().save(deliveryNote);
+        //
         return deliveryNote.getDelivery_note_id();
     }
 
     public int addDeliveryDetails(int deliveryID) {
+
         DeliveryNote deliveryNote = this.sessionFactory.getCurrentSession().get(DeliveryNote.class, deliveryID);
+
+        if(!deliveryNote.getDeliveryDetails().isEmpty()) {
+            for (DeliveryDetail oldDetail: deliveryNote.getDeliveryDetails()) {
+                this.sessionFactory.getCurrentSession().delete(oldDetail);
+            }
+        }
+
         if (deliveryNote.getSaleInvoice().getSaleDetails() != null) {
             for (SaleDetail saleDetail: deliveryNote.getSaleInvoice().getSaleDetails()) {
                 //create a new delivery detail note for each sale detail
@@ -62,6 +64,7 @@ public class DeliveryNoteService {
                 this.sessionFactory.getCurrentSession().save(newDetail);
             }
         }
+
         return deliveryID;
     }
 
@@ -74,24 +77,20 @@ public class DeliveryNoteService {
     }
 
     public int updateDeliveryNote(DeliveryNote deliveryNote) {
-//        if (deliveryNote.getDeliveryDetails() != null) {
-//            for (DeliveryDetail deliveryDetail: deliveryNote.getDeliveryDetails()) {
-//                //set the delivery note in the delivery detail to be the current one
-//                deliveryDetail.setDeliveryNote(deliveryNote);
-//                //save the details of the receiving note
-//                this.sessionFactory.getCurrentSession().update(deliveryDetail);
-//
-//                if (deliveryDetail.getProduct() != null) {
-//                    this.sessionFactory.getCurrentSession().update(deliveryDetail.getProduct());
-//                }
-//            }
-//        }
+        //
         this.sessionFactory.getCurrentSession().update(deliveryNote);
+        //
         return deliveryNote.getDelivery_note_id();
     }
 
     public DeliveryNote updateDeliveryDetails(int deliveryId) {
         int updateNoteId = addDeliveryDetails(deliveryId);
+
+        //clear data of current session
+        this.sessionFactory.getCurrentSession().flush();
+        this.sessionFactory.getCurrentSession().clear();
+
+        //
         return this.sessionFactory.getCurrentSession().get(DeliveryNote.class, updateNoteId);
     }
 

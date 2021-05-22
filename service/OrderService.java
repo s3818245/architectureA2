@@ -1,8 +1,6 @@
 package com.example.sadi_assignment2_s3819293.service;
 
-import com.example.sadi_assignment2_s3819293.model.Order;
-import com.example.sadi_assignment2_s3819293.model.OrderDetail;
-import com.example.sadi_assignment2_s3819293.model.Product;
+import com.example.sadi_assignment2_s3819293.model.*;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;

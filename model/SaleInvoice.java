@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "saleinvoice")
 public class SaleInvoice {
 
     @Id
@@ -48,6 +49,23 @@ public class SaleInvoice {
         this.customer = customer;
         this.saleDetails = saleDetails;
         this.deliveryNote = deliveryNote;
+    }
+
+    public SaleInvoice(int sale_invoice_id, Date date, Staff staff, Customer customer, List<SaleDetail> saleDetails) {
+        this.sale_invoice_id = sale_invoice_id;
+        this.date = date;
+        this.staff = staff;
+        this.customer = customer;
+        this.saleDetails = saleDetails;
+        this.deliveryNote = null;
+    }
+
+    public SaleInvoice(Date date, Staff staff, Customer customer, List<SaleDetail> saleDetails) {
+        this.date = date;
+        this.staff = staff;
+        this.customer = customer;
+        this.saleDetails = saleDetails;
+        this.deliveryNote = null;
     }
 
     public int getSale_invoice_id() {

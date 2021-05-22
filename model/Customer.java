@@ -51,6 +51,15 @@ public class Customer {
         this.contactPerson = contactPerson;
     }
 
+    public Customer(String name, String address, String phone, String fax, String email, String contactPerson, List<SaleInvoice> saleInvoices) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.fax = fax;
+        this.email = email;
+        this.contactPerson = contactPerson;
+    }
+
     public int getCustomer_id() {
         return customer_id;
     }

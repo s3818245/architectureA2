@@ -7,10 +7,12 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "receivingnote")
 public class ReceivingNote {
 
     @Id
@@ -30,7 +32,7 @@ public class ReceivingNote {
     private List<ReceivingDetail> receivingDetails;
 
     @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn //this table contain receiving not
+    @JoinColumn //this table contain receiving note
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Order order;
 

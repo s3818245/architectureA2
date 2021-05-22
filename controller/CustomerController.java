@@ -45,18 +45,18 @@ public class CustomerController {
         return this.customerService.deleteCustomer(customer);
     }
 
-    @RequestMapping(path = "/customers/{name}", method = RequestMethod.GET)
-    public List<Customer> findCustomerByName(@PathVariable String name) {
+    @RequestMapping(path = "/customers", params = "name", method = RequestMethod.GET)
+    public List<Customer> findCustomerByName(@RequestParam(value = "name") String name) {
         return this.customerService.getCustomerByName(name);
     }
 
-    @RequestMapping(path = "/customers/{address}", method = RequestMethod.GET)
-    public List<Customer> findCustomerByAddress(@PathVariable String address) {
+    @RequestMapping(path = "/customers", params = "address", method = RequestMethod.GET)
+    public List<Customer> findCustomerByAddress(@RequestParam(value = "address") String address) {
         return customerService.getCustomerByAddress(address);
     }
 
-    @RequestMapping(path = "/customers/{phone}", method = RequestMethod.GET)
-    public List<Customer> findCustomerByPhone(@PathVariable String phone) {
+    @RequestMapping(path = "/customers", params = "phone", method = RequestMethod.GET)
+    public List<Customer> findCustomerByPhone(@RequestParam(value = "phone") String phone) {
         return customerService.getCustomerByPhone(phone);
     }
 
