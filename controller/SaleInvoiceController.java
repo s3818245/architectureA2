@@ -131,8 +131,8 @@ public class SaleInvoiceController {
 //        }
 //    }
 
-    @RequestMapping(path = "/saleInvoices/filter", params = {"id", "start", "end", "type"}, method = RequestMethod.GET)
-    public List<SaleInvoice> getInvoiceByCustomerOrStaff(@RequestParam(value = "id") int id, @RequestParam(value = "start") String start, @RequestParam(value = "end") String end, @RequestParam(value = "type") String type) {
+    @RequestMapping(path = "/saleInvoices/filter", params = {"start", "end", "type", "id"}, method = RequestMethod.GET)
+    public List<SaleInvoice> getInvoiceByCustomerOrStaff(@RequestParam(value = "start") String start, @RequestParam(value = "end") String end, @RequestParam(value = "type") String type, @RequestParam(value = "id") int id) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date startDate = format.parse(start);
@@ -142,6 +142,75 @@ public class SaleInvoiceController {
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @RequestMapping(path = "/saleInvoices/revenue", method = RequestMethod.GET)
+    public double getRevenueByDate(@RequestParam(required = false) String date, @RequestParam(required = false) String start, @RequestParam(required = false) String end) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        if(date != null && start == null && end == null) {
+            String startDate = date + " 00:00:00";
+            String endDate = date + " 23:59:59";
+
+            try {
+                Date atStart = format.parse(startDate);
+                Date atEnd = format.parse(endDate);
+                return this.saleInvoiceService.getRevenueByDate(atStart, atEnd);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
+        else if(start != null && end != null) {
+            start += " 00:00:00";
+            end += " 23:59:59";
+
+            try {
+                Date atStart = format.parse(start);
+                Date atEnd = format.parse(end);
+                return this.saleInvoiceService.getRevenueByDate(atStart, atEnd);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
+        else {
+            return 0;
+        }
+    }
+
+    @RequestMapping(path = "/saleInvoices/revenue", params = {"start", "end"}, method = RequestMethod.GET)
+    public double getRevenueBetweenDate(@RequestParam(value = "start") String start, @RequestParam(value = "end") String end) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        if (start != null && end != null) {
+            try {
+                Date startDate = format.parse(start);
+                Date endDate = format.parse(end);
+
+                return this.saleInvoiceService.getRevenueByDate(startDate, endDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
+        else {
+            return 0;
+        }
+    }
+
+    @RequestMapping(path = "/saleInvoices/revenue", params = {"start", "end", "type", "id"}, method = RequestMethod.GET)
+    public double getRevenueByCustomerOrStaff(@RequestParam(value = "start") String start, @RequestParam(value = "end") String end, @RequestParam(value = "type") String type, @RequestParam(value = "id") int id) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date startDate = format.parse(start);
+            Date endDate = format.parse(end);
+
+            return this.saleInvoiceService.getRevenueByCustomerOrStaff(startDate, endDate, type, id);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 }
