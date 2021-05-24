@@ -20,7 +20,7 @@ public class InventoryController {
     private InventoryService inventoryService;
 
     @RequestMapping(path = "/inventory", method = RequestMethod.GET)
-    public List<Integer> getInventory(@RequestParam(required = false) String start, @RequestParam(required = false) String end) {
+    public List<String> getInventory(@RequestParam(required = false) String start, @RequestParam(required = false) String end) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         if (start != null && end != null) {

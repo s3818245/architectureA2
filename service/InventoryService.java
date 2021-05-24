@@ -26,116 +26,43 @@ public class InventoryService {
         this.sessionFactory = sessionFactory;
     }
 
-    public List<Integer> getInventory(Date start, Date end) {
-//        Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(Product.class);
-//        List<Product> products = criteria.list();
-//        List<Integer> receivedAmount = new ArrayList<>();
-//        List<Integer> deliveredAmount = new ArrayList<>();
-//        List<Integer> balanceAmount = new ArrayList<>();
-//
-//        List<Integer> productList = new ArrayList<>();
-//
-//        for (Product product: products) {
-//            int productId = product.getId();
-//            productList.add(productId);
-//            List<ReceivingDetail> receivingDetails = this.sessionFactory.getCurrentSession().createCriteria(ReceivingDetail.class).list();
-//            List<DeliveryDetail> deliveryDetails = this.sessionFactory.getCurrentSession().createCriteria(DeliveryDetail.class).list();
-//
-//            int receiveProductAmount = 0;
-//            int deliveryProductAmount = 0;
-//            int balance;
-//
-//            for (ReceivingDetail receivingDetail: receivingDetails) {
-//                int receivingDetailId = receivingDetail.getReceiving_detail_id();
-//                System.out.println(receivingDetailId);
-//                if (receivingDetailId == productId) {
-//                    receiveProductAmount += receivingDetail.getQuantity();
-//                    System.out.println(receiveProductAmount);
-//                }
-//                receivedAmount.add(receiveProductAmount);
-//            }
-//
-//            for (DeliveryDetail deliveryDetail: deliveryDetails) {
-//                int deliveryDetailId = deliveryDetail.getDelivery_detail_id();
-//                System.out.println(deliveryDetailId);
-//                if (deliveryDetailId == productId) {
-//                    deliveryProductAmount += deliveryDetail.getQuantity();
-//                    System.out.println(deliveryProductAmount);
-//                }
-//                deliveredAmount.add(deliveryProductAmount);
-//            }
-//            balance = receiveProductAmount - deliveryProductAmount;
-//            balanceAmount.add(balance);
-//        }
-//        return productList;
+    public List<String> getInventory(Date start, Date end) {
 
-        Criteria receivingNoteCriteria = this.sessionFactory.getCurrentSession().createCriteria(ReceivingNote.class)
-                .add(Restrictions.between("date", start, end));
-        Criteria deliveryNoteCriteria = this.sessionFactory.getCurrentSession().createCriteria(DeliveryNote.class)
-                .add(Restrictions.between("date", start, end));
+        //steps in the query
+        //- join receiving note table with receiving details
+        //- join delivery note table with delivery details
+        //- filter out the receiving note after start date and delivery note before start date
+        //- join product table with receiving details and delivery details => only products in both tables would be in the 
+        //query result
+        
+        SQLQuery queryForInventory = sessionFactory.getCurrentSession().createSQLQuery(
+                "select P.id, P.name, sum(R.quantity) as receivied , sum(D.quantity) as delivered, " +
+                        "sum(R.quantity) - sum(D.quantity) as balance " +
+                    "from product P, receivingDetail R, deliveryDetail D, receivingNote RN, deliveryNote DN " +
+                    "where R.receivingnote_receiving_note_id = RN.receiving_note_id and P.id = R.product_id " +
+                        "and P.id = D.product_id and D.deliverynote_delivery_note_id = DN.delivery_note_id " +
+                        "and RN.date >= :startdate and DN.date <= :enddate " +
+                        "group by P.id;"
+        );
 
-        List<ReceivingNote> receivingNoteList = receivingNoteCriteria.list();
-        List<DeliveryNote> deliveryNoteList = deliveryNoteCriteria.list();
+        queryForInventory.setParameter("startdate", start);
+        queryForInventory.setParameter("enddate", end);
 
-        //Final format
-        //product : ["receiving: qty", "delivery: qty", "inventory: qty"]
-        HashMap<String, ArrayList<String>> productKey = new HashMap<>();
-        ArrayList<String> productInventoryDetail = new ArrayList<>();
+        //change format of each result to array
+        List<Object[]> result = queryForInventory.list();
 
-        Iterator<ReceivingNote> receivingIterator = receivingNoteList.iterator();
-        Iterator<DeliveryNote> deliveryIterator = deliveryNoteList.iterator();
-        //list with all the products
-        ArrayList<Integer> productList = new ArrayList<>();
+        //List that will store server response
+        List<String> response = new ArrayList<>();
 
-        List<Integer> receivingAmountList = new ArrayList<>();
-        List<Integer> deliveryAmountList = new ArrayList<>();
+        for (Object[] line : result){
+            String newLineInResponse = "Product: " + line[1].toString() + " (id - " + line[0].toString()
+                                        + ") | Received: " + line[2].toString() + " | Delivered: " + line[3].toString() +
+                                        " | Balance: " + line[4].toString();
 
-        while (receivingIterator.hasNext() || deliveryIterator.hasNext()) {
-            int receiveProductAmount = 0;
-            int deliveryProductAmount = 0;
-            int balance;
-
-            if (receivingIterator.hasNext()) {
-                for (ReceivingDetail receivingDetail: receivingIterator.next().getReceivingDetails()) {
-                    if (!productList.contains(receivingDetail.getProduct().getId())) {
-                        productList.add(receivingDetail.getProduct().getId());
-                        receiveProductAmount = receivingDetail.getQuantity();
-                    }
-                    else {
-                        receiveProductAmount += receivingDetail.getQuantity();
-                    }
-                    receivingAmountList.add(receiveProductAmount);
-                }
-            }
-
-            if (deliveryIterator.hasNext()) {
-//                for (DeliveryDetail deliveryDetail: deliveryIterator.next().getDeliveryDetails()) {
-//                    if (!productList.contains(deliveryDetail.getProduct())) {
-//                        //productList.add(deliveryDetail.getProduct());
-//                        deliveryProductAmount = deliveryDetail.getQuantity();
-//                    }
-//                    else {
-//                        deliveryProductAmount += deliveryDetail.getQuantity();
-//                    }
-//                    deliveryAmountList.add(deliveryProductAmount);
-//                }
-
-
-
-                for (DeliveryDetail deliveryDetail: deliveryIterator.next().getDeliveryDetails()) {
-                    if (!productKey.containsKey(deliveryDetail.getProduct().getName())) {
-                        //productList.add(deliveryDetail.getProduct());
-                        //productKey.put(deliveryDetail.getProduct().getName(), 0);
-                        deliveryProductAmount = deliveryDetail.getQuantity();
-                    }
-                    else {
-                        deliveryProductAmount += deliveryDetail.getQuantity();
-                    }
-                    deliveryAmountList.add(deliveryProductAmount);
-                }
-            }
+            response.add(newLineInResponse);
         }
-        return deliveryAmountList;
+
+        return response;
     }
 
     public List<ReceivingNote> getInventoryQuery(Date start, Date end) {
