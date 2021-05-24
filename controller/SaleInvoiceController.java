@@ -99,13 +99,19 @@ public class SaleInvoiceController {
     @RequestMapping(path = "/saleInvoices/filter", params = {"start", "end", "type", "id"}, method = RequestMethod.GET)
     public List<SaleInvoice> getInvoiceByCustomerOrStaff(@RequestParam(value = "start") String start, @RequestParam(value = "end") String end, @RequestParam(value = "type") String type, @RequestParam(value = "id") int id) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date startDate = format.parse(start);
-            Date endDate = format.parse(end);
 
-            return this.saleInvoiceService.getInvoiceByCustomerOrStaff(startDate, endDate, type, id);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (start != null && end != null ) {
+            try {
+                Date startDate = format.parse(start);
+                Date endDate = format.parse(end);
+
+                return this.saleInvoiceService.getInvoiceByCustomerOrStaff(startDate, endDate, type, id);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        else {
             return null;
         }
     }
@@ -168,13 +174,18 @@ public class SaleInvoiceController {
     @RequestMapping(path = "/saleInvoices/revenue", params = {"start", "end", "type", "id"}, method = RequestMethod.GET)
     public double getRevenueByCustomerOrStaff(@RequestParam(value = "start") String start, @RequestParam(value = "end") String end, @RequestParam(value = "type") String type, @RequestParam(value = "id") int id) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date startDate = format.parse(start);
-            Date endDate = format.parse(end);
+        if (start != null && end != null && type != null && id != 0) {
+            try {
+                Date startDate = format.parse(start);
+                Date endDate = format.parse(end);
 
-            return this.saleInvoiceService.getRevenueByCustomerOrStaff(startDate, endDate, type, id);
-        } catch (ParseException e) {
-            e.printStackTrace();
+                return this.saleInvoiceService.getRevenueByCustomerOrStaff(startDate, endDate, type, id);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
+        else {
             return 0;
         }
     }

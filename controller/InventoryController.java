@@ -1,6 +1,7 @@
 package com.example.sadi_assignment2_s3819293.controller;
 
 import com.example.sadi_assignment2_s3819293.model.Product;
+import com.example.sadi_assignment2_s3819293.model.ReceivingNote;
 import com.example.sadi_assignment2_s3819293.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,26 @@ public class InventoryController {
                 Date endDate = format.parse(end);
 
                 return this.inventoryService.getInventory(startDate, endDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        else {
+            return null;
+        }
+    }
+
+    @RequestMapping(path = "/inventory/query", method = RequestMethod.GET)
+    public List<ReceivingNote> testQuery(@RequestParam(required = false) String start, @RequestParam(required = false) String end) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        if (start != null && end != null) {
+            try {
+                Date startDate = format.parse(start);
+                Date endDate = format.parse(end);
+
+                return this.inventoryService.getInventoryQuery(startDate, endDate);
             } catch (ParseException e) {
                 e.printStackTrace();
                 return null;

@@ -138,7 +138,7 @@ public class InventoryService {
         return deliveryAmountList;
     }
 
-    public void getInventoryQuery(Date start, Date end) {
+    public List<ReceivingNote> getInventoryQuery(Date start, Date end) {
         Query receivingQuery = sessionFactory.getCurrentSession().createSQLQuery("select P.name, sum(D.quantity)" +
                 "from product P, receivingNote N, receivingDetail D" +
                 "where P.id = D.product_id and D.receiving_note_id = N.receiving_note_id" +
@@ -154,5 +154,13 @@ public class InventoryService {
                 "group by P.id");
         receivingQuery.setParameter("start", start);
         receivingQuery.setParameter("end", end);
+
+        List<ReceivingNote> receivingNotes = receivingQuery.getResultList();
+        List<DeliveryNote> deliveryNotes = deliveryQuery.getResultList();
+
+        HashMap<String, ArrayList<String>> productKey = new HashMap<>();
+        ArrayList<String> productInventoryDetail = new ArrayList<>();
+
+        return receivingNotes;
     }
 }
