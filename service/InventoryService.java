@@ -7,11 +7,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -79,9 +77,14 @@ public class InventoryService {
         List<ReceivingNote> receivingNoteList = receivingNoteCriteria.list();
         List<DeliveryNote> deliveryNoteList = deliveryNoteCriteria.list();
 
+        //Final format
+        //product : ["receiving: qty", "delivery: qty", "inventory: qty"]
+        HashMap<String, ArrayList<String>> productKey = new HashMap<>();
+        ArrayList<String> productInventoryDetail = new ArrayList<>();
+
         Iterator<ReceivingNote> receivingIterator = receivingNoteList.iterator();
         Iterator<DeliveryNote> deliveryIterator = deliveryNoteList.iterator();
-
+        //list with all the products
         ArrayList<Integer> productList = new ArrayList<>();
 
         List<Integer> receivingAmountList = new ArrayList<>();
@@ -106,9 +109,23 @@ public class InventoryService {
             }
 
             if (deliveryIterator.hasNext()) {
+//                for (DeliveryDetail deliveryDetail: deliveryIterator.next().getDeliveryDetails()) {
+//                    if (!productList.contains(deliveryDetail.getProduct())) {
+//                        //productList.add(deliveryDetail.getProduct());
+//                        deliveryProductAmount = deliveryDetail.getQuantity();
+//                    }
+//                    else {
+//                        deliveryProductAmount += deliveryDetail.getQuantity();
+//                    }
+//                    deliveryAmountList.add(deliveryProductAmount);
+//                }
+
+
+
                 for (DeliveryDetail deliveryDetail: deliveryIterator.next().getDeliveryDetails()) {
-                    if (!productList.contains(deliveryDetail.getProduct())) {
+                    if (!productKey.containsKey(deliveryDetail.getProduct().getName())) {
                         //productList.add(deliveryDetail.getProduct());
+                        //productKey.put(deliveryDetail.getProduct().getName(), 0);
                         deliveryProductAmount = deliveryDetail.getQuantity();
                     }
                     else {
@@ -119,5 +136,23 @@ public class InventoryService {
             }
         }
         return deliveryAmountList;
+    }
+
+    public void getInventoryQuery(Date start, Date end) {
+        Query receivingQuery = sessionFactory.getCurrentSession().createSQLQuery("select P.name, sum(D.quantity)" +
+                "from product P, receivingNote N, receivingDetail D" +
+                "where P.id = D.product_id and D.receiving_note_id = N.receiving_note_id" +
+                "and N.date >= :start and N.date <= end" +
+                "group by P.id");
+        receivingQuery.setParameter("start", start);
+        receivingQuery.setParameter("end", end);
+
+        Query deliveryQuery = sessionFactory.getCurrentSession().createSQLQuery("select P.name, sum(D.quantity)" +
+                "from product P, deliveryNote N, deliveryDetail D" +
+                "where P.id = D.product_id and D.delivery_note_id = N.delivery_note_id" +
+                "and N.date >= :start and N.date <= end" +
+                "group by P.id");
+        receivingQuery.setParameter("start", start);
+        receivingQuery.setParameter("end", end);
     }
 }
