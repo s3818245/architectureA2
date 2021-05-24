@@ -38,6 +38,10 @@ public class Staff {
     @JsonIgnore
     private List<SaleInvoice> saleInvoices;
 
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.MERGE)
+    @JsonIgnore
+    private List<DeliveryNote> deliveryNotes;
+
     public Staff(int staff_id, String name, String address, String phone, String email) {
         this.staff_id = staff_id;
         this.name = name;
@@ -47,6 +51,7 @@ public class Staff {
         this.orderList = null;
         this.receivingNotes = null;
         this.saleInvoices = null;
+        this.deliveryNotes = null;
     }
 
     public Staff(String name, String address, String phone, String email) {
@@ -57,6 +62,7 @@ public class Staff {
         this.orderList = null;
         this.receivingNotes = null;
         this.saleInvoices = null;
+        this.deliveryNotes = null;
     }
 
     @Override

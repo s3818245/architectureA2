@@ -15,6 +15,7 @@ public class DeliveryDetail {
     private int delivery_detail_id;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
     @Column

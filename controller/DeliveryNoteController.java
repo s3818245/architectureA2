@@ -26,9 +26,9 @@ public class DeliveryNoteController {
         return this.deliveryNoteService.addDeliveryDetails(this.deliveryNoteService.addDeliveryNote(deliveryNote));
     }
 
-    @RequestMapping(path = "/deliveryNotes/{id}", method = RequestMethod.DELETE)
-    public String deleteDeliveryNote(@PathVariable int id) {
-        return this.deliveryNoteService.deleteDeliveryNote(id);
+    @RequestMapping(path = "/deliveryNotes", method = RequestMethod.DELETE)
+    public String deleteDeliveryNote(@RequestBody DeliveryNote deliveryNote) {
+        return this.deliveryNoteService.deleteDeliveryNote(deliveryNote);
     }
 
     @RequestMapping(path = "/deliveryNotes", method = RequestMethod.PUT)
@@ -36,7 +36,7 @@ public class DeliveryNoteController {
         return this.deliveryNoteService.updateDeliveryDetails(this.deliveryNoteService.updateDeliveryNote(deliveryNote));
     }
 
-    @RequestMapping(path = "/deliveryNotes/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/deliveryNotes/{id:[\\d]+}", method = RequestMethod.GET)
     public DeliveryNote getADeliveryNote(@PathVariable int id) {
         return this.deliveryNoteService.getOneDeliveryNote(id);
     }
@@ -73,5 +73,10 @@ public class DeliveryNoteController {
         else {
             return null;
         }
+    }
+
+    @RequestMapping("/deliverNotes/*")
+    public String pageNotFound() {
+        return "Page not found";
     }
 }

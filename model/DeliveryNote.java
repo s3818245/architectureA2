@@ -19,7 +19,7 @@ public class DeliveryNote {
     @Column
     private Date date;
 
-    @OneToOne
+    @ManyToOne
     private Staff staff;
 
     @OneToMany(mappedBy = "deliveryNote")

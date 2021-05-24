@@ -33,7 +33,7 @@ public class Customer {
     @Column
     private String contactPerson;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
     private List<SaleInvoice> saleInvoices;

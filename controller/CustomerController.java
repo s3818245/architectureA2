@@ -18,7 +18,7 @@ public class CustomerController {
         return customerService.getAllCustomer();
     }
 
-    @RequestMapping(path = "/customers/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/customers/{id:[\\d]+}", method = RequestMethod.GET)
     public Customer getCustomer(@PathVariable int id) {
         return customerService.getCustomerById(id);
     }
@@ -60,4 +60,8 @@ public class CustomerController {
         return customerService.getCustomerByPhone(phone);
     }
 
+    @RequestMapping("/customers/*")
+    public String pageNotFound() {
+        return "Page not found";
+    }
 }

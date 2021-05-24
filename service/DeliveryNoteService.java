@@ -36,28 +36,32 @@ public class DeliveryNoteService {
     }
 
     public int addDeliveryNote(DeliveryNote deliveryNote) {
-        //
+        //save the delivery note to database
         this.sessionFactory.getCurrentSession().save(deliveryNote);
-        //
+        //return the id of the delivery note
         return deliveryNote.getDelivery_note_id();
     }
 
+    //function to add delivery detail to a new or updated delivery note
     public int addDeliveryDetails(int deliveryID) {
 
         DeliveryNote deliveryNote = this.sessionFactory.getCurrentSession().get(DeliveryNote.class, deliveryID);
-
+        //delete the old details from the sale invoice if content
         if(!deliveryNote.getDeliveryDetails().isEmpty()) {
             for (DeliveryDetail oldDetail: deliveryNote.getDeliveryDetails()) {
                 this.sessionFactory.getCurrentSession().delete(oldDetail);
             }
         }
 
+        //get products from sale invoice to copy to delivery details
         if (deliveryNote.getSaleInvoice().getSaleDetails() != null) {
             for (SaleDetail saleDetail: deliveryNote.getSaleInvoice().getSaleDetails()) {
                 //create a new delivery detail note for each sale detail
                 DeliveryDetail newDetail = new DeliveryDetail();
                 //set the delivery note with the new detail created
                 newDetail.setDeliveryNote(deliveryNote);
+                //get product from sale invoice
+                newDetail.setProduct(saleDetail.getProduct());
                 //get the product quantity from the sale detail
                 newDetail.setQuantity(saleDetail.getQuantity());
                 //save the new detail into the database
@@ -68,21 +72,14 @@ public class DeliveryNoteService {
         return deliveryID;
     }
 
-    public String deleteDeliveryNote(int id) {
-        DeliveryNote deliveryNote = sessionFactory.getCurrentSession().get(DeliveryNote.class, id);
-        if (deliveryNote != null) {
-            sessionFactory.getCurrentSession().delete(deliveryNote);
-        }
-        return "Delivery Note with id: " + deliveryNote.getDelivery_note_id() + " is successfully deleted";
-    }
-
     public int updateDeliveryNote(DeliveryNote deliveryNote) {
-        //
+        //update delivery note to database
         this.sessionFactory.getCurrentSession().update(deliveryNote);
-        //
+        //return the id of delivery note
         return deliveryNote.getDelivery_note_id();
     }
 
+    //function to update delivery details with changed sale invoice
     public DeliveryNote updateDeliveryDetails(int deliveryId) {
         int updateNoteId = addDeliveryDetails(deliveryId);
 
@@ -93,6 +90,12 @@ public class DeliveryNoteService {
         //
         return this.sessionFactory.getCurrentSession().get(DeliveryNote.class, updateNoteId);
     }
+
+    public String deleteDeliveryNote(DeliveryNote deliveryNote) {
+        this.sessionFactory.getCurrentSession().delete(deliveryNote);
+        return "Delivery Note with id: " + deliveryNote.getDelivery_note_id() + " is successfully deleted";
+    }
+
 
     public List<DeliveryNote> getNoteByDate(Date start, Date end) {
         Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(DeliveryNote.class)

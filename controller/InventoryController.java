@@ -37,4 +37,9 @@ public class InventoryController {
             return null;
         }
     }
+
+    @RequestMapping("/inventory/*")
+    public String pageNotFound() {
+        return "Page not found";
+    }
 }
