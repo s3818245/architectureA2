@@ -19,7 +19,7 @@ public class DeliveryNote {
     @Column
     private Date date;
 
-    @ManyToOne
+    @OneToOne
     private Staff staff;
 
     @OneToMany(mappedBy = "deliveryNote")
@@ -33,6 +33,13 @@ public class DeliveryNote {
     private SaleInvoice saleInvoice;
 
     public DeliveryNote() {
+    }
+
+    public DeliveryNote(Date date, Staff staff, SaleInvoice saleInvoice) {
+        this.date = date;
+        this.staff = staff;
+        this.deliveryDetails = null;
+        this.saleInvoice = saleInvoice;
     }
 
     public int getDelivery_note_id() {
@@ -73,5 +80,20 @@ public class DeliveryNote {
 
     public void setSaleInvoice(SaleInvoice saleInvoice) {
         this.saleInvoice = saleInvoice;
+    }
+
+    @Override
+    public String toString() {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+
+        return "DeliveryNote{" +
+                "delivery_note_id=" + delivery_note_id +
+                ", date=" + dateFormat.format(date) +
+                ", staff=" + staff.toString() +
+                ", deliveryDetails=" + deliveryDetails.toString() +
+                ", saleInvoice=" + saleInvoice.toString() +
+                '}';
     }
 }

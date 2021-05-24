@@ -15,7 +15,6 @@ public class DeliveryDetail {
     private int delivery_detail_id;
 
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
     @Column
@@ -34,6 +33,19 @@ public class DeliveryDetail {
         this.product = product;
         this.quantity = quantity;
         this.deliveryNote = deliveryNote;
+    }
+
+    public DeliveryDetail(int delivery_detail_id, Product product, int quantity) {
+        this.delivery_detail_id = delivery_detail_id;
+        this.product = product;
+        this.quantity = quantity;
+        this.deliveryNote = null;
+    }
+
+    public DeliveryDetail(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+        this.deliveryNote = null;
     }
 
     public int getDelivery_detail_id() {
@@ -66,5 +78,13 @@ public class DeliveryDetail {
 
     public void setDeliveryNote(DeliveryNote deliveryNote) {
         this.deliveryNote = deliveryNote;
+    }
+
+    @Override
+    public String toString() {
+        return "DeliveryDetail{" +
+                ", product=" + product.toString() +
+                ", quantity=" + quantity +
+                '}';
     }
 }
