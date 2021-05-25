@@ -28,14 +28,9 @@ public class CustomerController {
         return customer.getCustomer_id();
     }
 
-    @RequestMapping(path = "/customers/{id:[\\d]+}", method = RequestMethod.PUT)
-    public Customer updateCustomer(@RequestBody Customer customer, @PathVariable int id) {
-        Customer updateCustomer = customerService.getCustomerById(id);
-
-        if (updateCustomer != null) {
-            this.customerService.updateCustomer(updateCustomer);
-        }
-
+    @RequestMapping(path = "/customers", method = RequestMethod.PUT)
+    public Customer updateCustomer(@RequestBody Customer customer) {
+        this.customerService.updateCustomer(customer);
         return customer;
     }
 

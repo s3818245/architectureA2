@@ -41,8 +41,9 @@ public class SaleInvoiceService {
 
     public double totalValueOfInvoice(int id) {
         double sumOfInvoice = 0;
+        SaleInvoice savedSaleInvoice = this.sessionFactory.getCurrentSession().get(SaleInvoice.class, id);
 
-        for (SaleDetail saleDetail: getASaleInvoice(id).getSaleDetails()) {
+        for (SaleDetail saleDetail: savedSaleInvoice.getSaleDetails()) {
             if (getAProduct(saleDetail.getProduct().getId()) != null) {
                 sumOfInvoice += saleDetail.getTotalValue();
             }
@@ -103,18 +104,43 @@ public class SaleInvoiceService {
                     }
 
                     saleDetail.setTotalValue(product.getSellingPrice() * saleDetail.getQuantity());
+
                     //this.sessionFactory.getCurrentSession().save(saleDetail.getSalesInvoice());
                 }
             }
         }
 
+        int idOfNewInvoice = saleInvoice.getSale_invoice_id();
+
         this.sessionFactory.getCurrentSession().update(saleInvoice);
+        //flush current session
+        this.sessionFactory.getCurrentSession().flush();
+        this.sessionFactory.getCurrentSession().clear();
+
+        //get new total price
+        double sumOfInvoice = 0;
+        //get updated sale invoice
+        SaleInvoice savedSaleInvoice = this.sessionFactory.getCurrentSession().get(SaleInvoice.class, idOfNewInvoice);
+
+        //calculate the total price
+        for (SaleDetail saleDetail: savedSaleInvoice.getSaleDetails()) {
+            if (getAProduct(saleDetail.getProduct().getId()) != null) {
+                sumOfInvoice += saleDetail.getTotalValue();
+            }
+        }
+
+        //set total price
+        savedSaleInvoice.setTotalPrice(sumOfInvoice);
+
+        //update sale invoice with total price
+        this.sessionFactory.getCurrentSession().update(savedSaleInvoice);
 
         //flush current session
         this.sessionFactory.getCurrentSession().flush();
         this.sessionFactory.getCurrentSession().clear();
 
-        return getASaleInvoice(saleInvoice.getSale_invoice_id());
+        //get updated sale invoice
+        return getASaleInvoice(idOfNewInvoice);
     }
 
     public List<SaleInvoice> getInvoiceByDate(Date start, Date end) {
