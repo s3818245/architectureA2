@@ -1,4 +1,4 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
@@ -7,7 +7,6 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "receivingdetail")
 public class ReceivingDetail {
 
     @Id
@@ -34,6 +33,12 @@ public class ReceivingDetail {
         this.product = product;
         this.quantity = quantity;
         this.receivingNote = receivingNote;
+    }
+
+    public ReceivingDetail(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+        this.receivingNote = null;
     }
 
     public int getReceiving_detail_id() {
@@ -66,6 +71,14 @@ public class ReceivingDetail {
 
     public void setReceivingNote(ReceivingNote receivingNote) {
         this.receivingNote = receivingNote;
+    }
+
+    @Override
+    public String toString() {
+        return "ReceivingDetail{" +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                '}';
     }
 }
 

@@ -1,9 +1,9 @@
-package com.example.sadi_assignment2_s3819293.service;
+package com.quynhanh.architecturea2.service;
 
-import com.example.sadi_assignment2_s3819293.model.Order;
-import com.example.sadi_assignment2_s3819293.model.OrderDetail;
-import com.example.sadi_assignment2_s3819293.model.ReceivingDetail;
-import com.example.sadi_assignment2_s3819293.model.ReceivingNote;
+import com.quynhanh.architecturea2.model.Order;
+import com.quynhanh.architecturea2.model.OrderDetail;
+import com.quynhanh.architecturea2.model.ReceivingDetail;
+import com.quynhanh.architecturea2.model.ReceivingNote;
 import org.hibernate.Criteria;
 import org.hibernate.QueryException;
 import org.hibernate.SessionFactory;

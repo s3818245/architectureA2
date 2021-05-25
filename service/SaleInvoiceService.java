@@ -1,6 +1,6 @@
-package com.example.sadi_assignment2_s3819293.service;
+package com.quynhanh.architecturea2.service;
 
-import com.example.sadi_assignment2_s3819293.model.*;
+import com.quynhanh.architecturea2.model.*;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +33,7 @@ public class SaleInvoiceService {
     public SaleInvoice getASaleInvoice(int id) {
         return sessionFactory.getCurrentSession().get(SaleInvoice.class, id);
     }
+
 
     public Product getAProduct(int id){
         return sessionFactory.getCurrentSession().get(Product.class, id);
@@ -175,4 +175,23 @@ public class SaleInvoiceService {
 
         return revenue;
     }
+
+    //Additional function for adding products to database
+    //FOR TESTING PURPOSE ONLY, product is only created via OrderService
+    //used in SaleInvoiceServiceTest
+    public int addProduct(Product product){
+        this.sessionFactory.getCurrentSession().save(product.getCategory());
+        this.sessionFactory.getCurrentSession().save(product);
+
+        return product.getId();
+    }
+
+    //Additional function for deleting products from database
+    //FOR TESTING PURPOSE ONLY, product is only created via OrderService
+    //used in SaleInvoiceServiceTest
+    public void deleteProduct(Product product){
+        this.sessionFactory.getCurrentSession().delete(product.getCategory());
+        this.sessionFactory.getCurrentSession().delete(product);
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -105,4 +105,16 @@ public class SaleDetail {
     public void setTotalValue(double totalValue) {
         this.totalValue = totalValue;
     }
+
+    @Override
+    public String toString() {
+        return "SaleDetail{" +
+                "sale_detail_id=" + sale_detail_id +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", product=" + product.toString() +
+                ", totalValue=" + totalValue +
+                '}';
+    }
 }
+

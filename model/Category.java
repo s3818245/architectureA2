@@ -1,4 +1,4 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 
 import javax.persistence.*;
 
@@ -53,7 +53,6 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "category_id=" + category_id +
                 ", name='" + name + '\'' +
                 '}';
     }

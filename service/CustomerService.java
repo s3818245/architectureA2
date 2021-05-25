@@ -1,5 +1,5 @@
-package com.example.sadi_assignment2_s3819293.service;
-
+package com.quynhanh.architecturea2.service;
+import com.quynhanh.architecturea2.model.Customer;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
@@ -10,11 +10,10 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-import com.example.sadi_assignment2_s3819293.model.Customer;
-
 @Service
 @Transactional
 public class CustomerService {
+
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -37,7 +36,7 @@ public class CustomerService {
     }
 
     public int addCustomer(Customer customer) {
-        this.sessionFactory.getCurrentSession().saveOrUpdate(customer);
+        this.sessionFactory.getCurrentSession().save(customer);
         return customer.getCustomer_id();
     }
 

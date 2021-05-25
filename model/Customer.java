@@ -1,4 +1,4 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
@@ -51,13 +51,25 @@ public class Customer {
         this.contactPerson = contactPerson;
     }
 
-    public Customer(String name, String address, String phone, String fax, String email, String contactPerson, List<SaleInvoice> saleInvoices) {
+    public Customer(String name, String address, String phone, String fax, String email, String contactPerson) {
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.fax = fax;
         this.email = email;
         this.contactPerson = contactPerson;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customer_id=" + customer_id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", fax='" + fax + '\'' +
+                ", email='" + email + '\'' +
+                ", contactPerson='" + contactPerson + '\'';
     }
 
     public int getCustomer_id() {
@@ -116,3 +128,4 @@ public class Customer {
         this.contactPerson = contactPerson;
     }
 }
+

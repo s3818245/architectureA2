@@ -1,7 +1,5 @@
-package com.example.sadi_assignment2_s3819293.service;
-
-import com.example.sadi_assignment2_s3819293.model.*;
-
+package com.quynhanh.architecturea2.service;
+import com.quynhanh.architecturea2.model.*;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,6 +129,7 @@ public class OrderService {
         return "Order with id " + order.getOrder_id() + " is deleted";
     }
 
+
     public Order updateOrder(Order order){
         if (checkProviderExisted(order.getProvider()) != null){
             //if provider existed, set order provider
@@ -141,6 +140,7 @@ public class OrderService {
         }
         //loop through the order details for updating
         if (order.getOrderDetails() != null){
+
             for(OrderDetail orderDetail: order.getOrderDetails()){
                 orderDetail.setOrder(order);
 

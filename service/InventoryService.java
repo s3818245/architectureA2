@@ -1,15 +1,21 @@
-package com.example.sadi_assignment2_s3819293.service;
+package com.quynhanh.architecturea2.service;
 
-import com.example.sadi_assignment2_s3819293.model.*;
+import com.quynhanh.architecturea2.model.*;
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.*;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 @Service
 @Transactional
@@ -48,12 +54,12 @@ public class InventoryService {
                         "group by P.id;"
         );
 
-        //set the parameter in the query to start and end date specified 
+        //set the parameter in the query to start and end date specified
         queryForDelivered.setParameter("startdate", start);
         queryForDelivered.setParameter("enddate", end);
         queryForReceiving.setParameter("startdate", start);
         queryForReceiving.setParameter("enddate", end);
-        
+
         //convert query result to list
         List<Object[]> delivered = queryForDelivered.list();
         List<Object[]> received = queryForReceiving.list();
@@ -86,31 +92,6 @@ public class InventoryService {
         }
 
         return response;
-    }
 
-    public List<ReceivingNote> getInventoryQuery(Date start, Date end) {
-        Query receivingQuery = sessionFactory.getCurrentSession().createSQLQuery("select P.name, sum(D.quantity)" +
-                "from product P, receivingNote N, receivingDetail D" +
-                "where P.id = D.product_id and D.receiving_note_id = N.receiving_note_id" +
-                "and N.date >= :start and N.date <= end" +
-                "group by P.id");
-        receivingQuery.setParameter("start", start);
-        receivingQuery.setParameter("end", end);
-
-        Query deliveryQuery = sessionFactory.getCurrentSession().createSQLQuery("select P.name, sum(D.quantity)" +
-                "from product P, deliveryNote N, deliveryDetail D" +
-                "where P.id = D.product_id and D.delivery_note_id = N.delivery_note_id" +
-                "and N.date >= :start and N.date <= end" +
-                "group by P.id");
-        receivingQuery.setParameter("start", start);
-        receivingQuery.setParameter("end", end);
-
-        List<ReceivingNote> receivingNotes = receivingQuery.getResultList();
-        List<DeliveryNote> deliveryNotes = deliveryQuery.getResultList();
-
-        HashMap<String, ArrayList<String>> productKey = new HashMap<>();
-        ArrayList<String> productInventoryDetail = new ArrayList<>();
-
-        return receivingNotes;
     }
 }

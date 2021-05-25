@@ -1,4 +1,4 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -6,8 +6,10 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 
 @Entity
 @Table(name = "saleinvoice")
@@ -125,5 +127,19 @@ public class SaleInvoice {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        return "SaleInvoice{" +
+                "sale_invoice_id=" + sale_invoice_id +
+                ", date=" + dateFormat.format(date) +
+                ", staff=" + staff.toString() +
+                ", customer=" + customer.toString() +
+                ", saleDetails=" + saleDetails.toString() +
+                ", totalPrice=" + totalPrice +
+                '}';
     }
 }

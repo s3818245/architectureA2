@@ -1,4 +1,4 @@
-package com.example.sadi_assignment2_s3819293.model;
+package com.quynhanh.architecturea2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
@@ -37,7 +37,6 @@ public class Order {
     private List<OrderDetail> orderDetails;
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.MERGE)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private ReceivingNote receivingNote;
 

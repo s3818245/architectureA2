@@ -1,7 +1,7 @@
-package com.example.sadi_assignment2_s3819293.service;
-import com.example.sadi_assignment2_s3819293.model.DeliveryDetail;
-import com.example.sadi_assignment2_s3819293.model.DeliveryNote;
-import com.example.sadi_assignment2_s3819293.model.SaleDetail;
+package com.quynhanh.architecturea2.service;
+import com.quynhanh.architecturea2.model.DeliveryDetail;
+import com.quynhanh.architecturea2.model.DeliveryNote;
+import com.quynhanh.architecturea2.model.SaleDetail;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;

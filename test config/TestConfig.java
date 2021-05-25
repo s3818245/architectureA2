@@ -1,25 +1,29 @@
-package com.quynhanh.architecturea2.config;
+package com.quynhanh.architecturea2;
 
 import com.quynhanh.architecturea2.model.*;
 import org.hibernate.SessionFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Properties;
 
-
+@TestConfiguration
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-@Configuration
 @EnableTransactionManagement
-@EnableWebMvc
-public class AppConfig {
+@Profile("test")
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+public class TestConfig {
     @Bean
     public Customer customer() {
         return new Customer();
@@ -94,7 +98,7 @@ public class AppConfig {
         //For mysql
         //properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         properties.put("hibernate.show_sql", true);
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
 
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
 
@@ -102,7 +106,7 @@ public class AppConfig {
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/demo");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/test");
         dataSource.setUsername("postgres");
         dataSource.setPassword("quynhanh551");
 
@@ -118,5 +122,4 @@ public class AppConfig {
 
         return tx;
     }
-
 }
