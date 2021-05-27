@@ -1,15 +1,23 @@
-package com.quynhanh.architecturea2.controllers;
+package com.example.sadi_assignment2_s3819293.controllers;
 
-import com.quynhanh.architecturea2.model.ReceivingNote;
-import com.quynhanh.architecturea2.service.ReceivingNoteService;
+import com.example.sadi_assignment2_s3819293.model.ReceivingNote;
+import com.example.sadi_assignment2_s3819293.service.ReceivingNoteService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 10, 2021
+ *
+ * This class represent a Controller for Receiving Note in a REST API, it contains all the paths for each operations in the Service
+ */
 
 @RestController
 public class ReceivingNoteController {

@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
@@ -6,6 +6,14 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 4, 2021
+ *
+ * This class represent a Customer of the company
+ */
 
 @Entity
 @Table(name = "customer")
@@ -38,6 +46,7 @@ public class Customer {
     @JsonIgnore
     private List<SaleInvoice> saleInvoices;
 
+    //constructors
     public Customer() {
     }
 
@@ -72,6 +81,7 @@ public class Customer {
                 ", contactPerson='" + contactPerson + '\'';
     }
 
+    //getter and setter
     public int getCustomer_id() {
         return customer_id;
     }

@@ -1,9 +1,18 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 4, 2021
+ *
+ * This class represent a Provider of products to the company
+ */
+
 
 @Entity
 @Table(name = "provider")
@@ -35,6 +44,7 @@ public class Provider {
     @JsonIgnore
     private List<Order> orderList;
 
+    //constructors
     public Provider(int provider_id, String name, String address, String phone, String fax, String email, String contactPerson) {
         this.provider_id = provider_id;
         this.name = name;
@@ -58,6 +68,7 @@ public class Provider {
 
     }
 
+    //getter and setter
     public int getProvider_id() {
         return provider_id;
     }

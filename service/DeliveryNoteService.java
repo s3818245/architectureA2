@@ -1,7 +1,9 @@
-package com.quynhanh.architecturea2.service;
-import com.quynhanh.architecturea2.model.DeliveryDetail;
-import com.quynhanh.architecturea2.model.DeliveryNote;
-import com.quynhanh.architecturea2.model.SaleDetail;
+package com.example.sadi_assignment2_s3819293.service;
+
+import com.example.sadi_assignment2_s3819293.model.DeliveryDetail;
+import com.example.sadi_assignment2_s3819293.model.DeliveryNote;
+import com.example.sadi_assignment2_s3819293.model.SaleDetail;
+
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -11,6 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 10, 2021
+ *
+ * This class represent a Delivery Note Service, which contain all the CRUD operations with some additional API like get all the note(s) in a period of time
+ */
 
 @Service
 @Transactional
@@ -87,7 +97,7 @@ public class DeliveryNoteService {
         this.sessionFactory.getCurrentSession().flush();
         this.sessionFactory.getCurrentSession().clear();
 
-        //
+        //get the updated note from the database
         return this.sessionFactory.getCurrentSession().get(DeliveryNote.class, updateNoteId);
     }
 
@@ -95,7 +105,6 @@ public class DeliveryNoteService {
         this.sessionFactory.getCurrentSession().delete(deliveryNote);
         return "Delivery Note with id: " + deliveryNote.getDelivery_note_id() + " is successfully deleted";
     }
-
 
     public List<DeliveryNote> getNoteByDate(Date start, Date end) {
         Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(DeliveryNote.class)

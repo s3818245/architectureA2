@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
@@ -10,6 +10,15 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 4, 2021
+ *
+ * This class represent an Order made by the company to get product(s)
+ */
+
 
 @Entity
 @Table(name = "orders")
@@ -40,6 +49,7 @@ public class Order {
     @JsonIgnore
     private ReceivingNote receivingNote;
 
+    //constructors
     public Order(int order_id, Date date, Staff staff, Provider provider, List<OrderDetail> orderDetails, ReceivingNote receivingNote) {
         this.order_id = order_id;
         this.date = date;
@@ -82,6 +92,7 @@ public class Order {
                 '}';
     }
 
+    //getter and setter
     public int getOrder_id() {
         return order_id;
     }
@@ -129,6 +140,5 @@ public class Order {
     public void setReceivingNote(ReceivingNote receivingNote) {
         this.receivingNote = receivingNote;
     }
-
 
 }

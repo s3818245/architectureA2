@@ -1,8 +1,7 @@
-package com.quynhanh.architecturea2.controllers;
+package com.example.sadi_assignment2_s3819293.controllers;
 
-import com.quynhanh.architecturea2.model.SaleInvoice;
-import com.quynhanh.architecturea2.service.InventoryService;
-import com.quynhanh.architecturea2.service.SaleInvoiceService;
+import com.example.sadi_assignment2_s3819293.service.InventoryService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +12,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 10, 2021
+ *
+ * This class represent a Controller for Inventory Note in a REST API, it contain all the path for each operations in the Service
+ */
 
 @RestController
 public class InventoryNoteController {

@@ -1,21 +1,22 @@
-package com.quynhanh.architecturea2.service;
+package com.example.sadi_assignment2_s3819293.service;
 
-import com.quynhanh.architecturea2.model.*;
-import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 10, 2021
+ *
+ * This class represent a Customer Service, which contain a function to calculate the balance of each product in a warehouse for easier manage of product amount
+ */
 
 @Service
 @Transactional

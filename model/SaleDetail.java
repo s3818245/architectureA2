@@ -1,11 +1,19 @@
-package com.quynhanh.architecturea2.model;
-
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 4, 2021
+ *
+ * This class represent a Sale Detail of an Invoice
+ */
+
 
 @Entity
 @Table(name = "saledetail")
@@ -33,6 +41,7 @@ public class SaleDetail {
     @JsonIgnore
     private SaleInvoice salesInvoice;
 
+    //constructors
     public SaleDetail() {
     }
 
@@ -58,6 +67,7 @@ public class SaleDetail {
         this.product = product;
     }
 
+    //getter and setter
     public int getSale_detail_id() {
         return sale_detail_id;
     }

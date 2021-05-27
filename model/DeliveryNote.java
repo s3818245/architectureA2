@@ -1,4 +1,5 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
+
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -8,6 +9,15 @@ import javax.persistence.Table;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 4, 2021
+ *
+ * This class represent a Delivery Note of a Sale Invoice
+ */
+
 
 @Entity
 @Table(name = "deliverynote")
@@ -33,6 +43,7 @@ public class DeliveryNote {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private SaleInvoice saleInvoice;
 
+    //constructors
     public DeliveryNote() {
     }
 
@@ -43,6 +54,7 @@ public class DeliveryNote {
         this.saleInvoice = saleInvoice;
     }
 
+    //getter and setter
     public int getDelivery_note_id() {
         return delivery_note_id;
     }
@@ -87,8 +99,7 @@ public class DeliveryNote {
     public String toString() {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-
-
+        
         return "DeliveryNote{" +
                 "delivery_note_id=" + delivery_note_id +
                 ", date=" + dateFormat.format(date) +

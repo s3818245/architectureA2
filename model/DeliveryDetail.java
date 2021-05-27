@@ -1,4 +1,4 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
@@ -6,6 +6,13 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 4, 2021
+ *
+ * This class represent a Delivery Detail of a Delivery Note
+ */
 
 @Entity
 @Table(name = "deliverydetail")
@@ -26,6 +33,7 @@ public class DeliveryDetail {
     @JsonIgnore
     private DeliveryNote deliveryNote;
 
+    //constructors
     public DeliveryDetail() {
     }
 
@@ -49,6 +57,7 @@ public class DeliveryDetail {
         this.deliveryNote = null;
     }
 
+    //getter and setter
     public int getDelivery_detail_id() {
         return delivery_detail_id;
     }

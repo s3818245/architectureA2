@@ -1,4 +1,5 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -9,6 +10,14 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 4, 2021
+ *
+ * This class represent a Sale Invoice made by a Customer buying from the company
+ */
 
 
 @Entity
@@ -44,6 +53,7 @@ public class SaleInvoice {
     @Column
     private double totalPrice = 0;
 
+    //constructors
     public SaleInvoice() {
     }
 
@@ -73,6 +83,7 @@ public class SaleInvoice {
         this.deliveryNote = null;
     }
 
+    //getter and setter
     public int getSale_invoice_id() {
         return sale_invoice_id;
     }

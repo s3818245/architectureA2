@@ -1,8 +1,16 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import javax.persistence.*;
 
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 4, 2021
+ *
+ * This class represent a Category of a product
+ */
 
 @Entity
 @Table(name = "category")
@@ -17,6 +25,7 @@ public class Category {
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Product> product;
 
+    //constructor
     public Category(int id, String name) {
         this.category_id = id;
         this.name = name;

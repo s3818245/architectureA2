@@ -1,5 +1,7 @@
-package com.quynhanh.architecturea2.service;
-import com.quynhanh.architecturea2.model.*;
+package com.example.sadi_assignment2_s3819293.service;
+
+import com.example.sadi_assignment2_s3819293.model.*;
+
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 10, 2021
+ *
+ * This class represent an Order Service, which contain all the CRUD operations
+ */
 
 @Service
 @Transactional
@@ -128,7 +138,6 @@ public class OrderService {
         this.sessionFactory.getCurrentSession().delete(order);
         return "Order with id " + order.getOrder_id() + " is deleted";
     }
-
 
     public Order updateOrder(Order order){
         if (checkProviderExisted(order.getProvider()) != null){

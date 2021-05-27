@@ -1,10 +1,19 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 4, 2021
+ *
+ * This class represent a Receiving Detail of a Receiving Note
+ */
+
 
 @Entity
 public class ReceivingDetail {
@@ -25,6 +34,7 @@ public class ReceivingDetail {
     @JsonIgnore
     private ReceivingNote receivingNote;
 
+    //constructors
     public ReceivingDetail() {
     }
 
@@ -41,6 +51,7 @@ public class ReceivingDetail {
         this.receivingNote = null;
     }
 
+    //getter and setter
     public int getReceiving_detail_id() {
         return receiving_detail_id;
     }

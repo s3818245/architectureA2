@@ -1,10 +1,19 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 4, 2021
+ *
+ * This class represent a Staff of the company
+ */
+
 
 @Entity
 @Table(name = "staff")
@@ -38,6 +47,7 @@ public class Staff {
     @JsonIgnore
     private List<SaleInvoice> saleInvoices;
 
+    //constructors
     public Staff(int staff_id, String name, String address, String phone, String email) {
         this.staff_id = staff_id;
         this.name = name;
@@ -59,6 +69,9 @@ public class Staff {
         this.saleInvoices = null;
     }
 
+    public Staff() {
+    }
+
     @Override
     public String toString() {
         return "Staff{" +
@@ -70,9 +83,7 @@ public class Staff {
                 '}';
     }
 
-    public Staff() {
-    }
-
+    //getter and setter
     public int getStaff_id() {
         return staff_id;
     }

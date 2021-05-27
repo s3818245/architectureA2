@@ -1,11 +1,20 @@
-package com.quynhanh.architecturea2.controllers;
+package com.example.sadi_assignment2_s3819293.controllers;
 
-import com.quynhanh.architecturea2.model.Staff;
-import com.quynhanh.architecturea2.service.StaffService;
+import com.example.sadi_assignment2_s3819293.model.Staff;
+import com.example.sadi_assignment2_s3819293.service.StaffService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 10, 2021
+ *
+ * This class represent a Controller for Staff in a REST API, it contains all the paths for each operations in the Service
+ */
 
 @RestController
 public class StaffController {
@@ -33,13 +42,13 @@ public class StaffController {
         return this.staffService.deleteStaff(staff);
     }
 
-    @RequestMapping(path = "/staffs/{id:[\\d]+}", method = RequestMethod.GET)
+    @RequestMapping(path = "/staffs/{id}", method = RequestMethod.GET)
     public Staff getAStaff(@PathVariable int id){
         return staffService.getAStaff(id);
     }
 
     @RequestMapping("staffs/*")
     public String pageNotFound(){
-        return "Page not found";
+        return "page not found";
     }
 }

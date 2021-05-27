@@ -1,20 +1,26 @@
-package com.quynhanh.architecturea2.service;
+package com.example.sadi_assignment2_s3819293.service;
 
-import com.quynhanh.architecturea2.model.Order;
-import com.quynhanh.architecturea2.model.OrderDetail;
-import com.quynhanh.architecturea2.model.ReceivingDetail;
-import com.quynhanh.architecturea2.model.ReceivingNote;
+import com.example.sadi_assignment2_s3819293.model.OrderDetail;
+import com.example.sadi_assignment2_s3819293.model.ReceivingDetail;
+import com.example.sadi_assignment2_s3819293.model.ReceivingNote;
+
 import org.hibernate.Criteria;
-import org.hibernate.QueryException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 10, 2021
+ *
+ * This class represent a Receiving Note Service, which contain all the CRUD operation with some additional API like get all the note(s) in a period of time
+ */
 
 @Service
 @Transactional

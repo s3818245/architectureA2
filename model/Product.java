@@ -1,13 +1,19 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 4, 2021
+ *
+ * This class represent a Product being sold by the company
+ */
+
 
 @Entity
 @Table(name = "product")
@@ -40,15 +46,7 @@ public class Product {
     @Column
     private double sellingPrice;
 
-//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-//    @LazyCollection(LazyCollectionOption.FALSE)
-//    @JsonIgnore
-//    private List<OrderDetail> orderDetails;
-//
-//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-//    @JsonIgnore
-//    private List<ReceivingDetail> receivingDetails;
-
+    //constructors
     public Product(){}
 
     public Product(int id, String name, String model, String brand, String company, String description, Category category, double sellingPrice, List<OrderDetail> orderDetails) {
@@ -60,7 +58,6 @@ public class Product {
         this.description = description;
         this.category = category;
         this.sellingPrice = sellingPrice;
-//        this.orderDetails = orderDetails;
     }
 
     public Product(int id, String name, String model, String brand, String company, String description, Category category, double sellingPrice) {
@@ -72,7 +69,6 @@ public class Product {
         this.description = description;
         this.category = category;
         this.sellingPrice = sellingPrice;
-//        this.orderDetails = null;
     }
 
     public Product(String name, String model, String brand, String company, String description, Category category, double sellingPrice) {
@@ -83,9 +79,9 @@ public class Product {
         this.description = description;
         this.category = category;
         this.sellingPrice = sellingPrice;
-//        this.orderDetails = null;
     }
 
+    //getter and setter
     public double getSellingPrice() {
         return sellingPrice;
     }

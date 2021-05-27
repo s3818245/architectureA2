@@ -1,4 +1,5 @@
-package com.quynhanh.architecturea2.model;
+package com.example.sadi_assignment2_s3819293.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.*;
@@ -9,6 +10,15 @@ import javax.persistence.Entity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * @author Nguyen Thi Nha Uyen (s3819293) and Phan Truong Quynh Anh (s3818245)
+ * @version 1.0
+ * @since May 4, 2021
+ *
+ * This class represent a Receiving Note of an Order
+ */
+
 
 @Entity
 public class ReceivingNote {
@@ -34,6 +44,7 @@ public class ReceivingNote {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Order order;
 
+    //constructors
     public ReceivingNote() {
     }
 
@@ -44,6 +55,7 @@ public class ReceivingNote {
         this.order = order;
     }
 
+    //getter and setter
     public int getReceiving_note_id() {
         return receiving_note_id;
     }
